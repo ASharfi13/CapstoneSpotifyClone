@@ -2,6 +2,9 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .songs import seed_songs, undo_songs
 from .albums import seed_albums, undo_albums
+from .likes import seed_likes, undo_likes
+from .song_playlist import seed_song_playlists, undo_song_playlists
+from .playlist import seed_playlists, undo_playlists
 
 from app.models.db import db, environment, SCHEMA
 
@@ -21,9 +24,15 @@ def seed():
         undo_users()
         undo_albums()
         undo_songs()
+        undo_likes()
+        undo_playlists()
+        undo_song_playlists()
     seed_users()
     seed_albums()
     seed_songs()
+    seed_likes()
+    seed_playlists()
+    seed_song_playlists()
     # Add other seed functions here
 
 
@@ -33,5 +42,8 @@ def undo():
     undo_users()
     undo_albums()
     undo_songs()
+    seed_likes()
+    seed_playlists()
+    seed_song_playlists()
 
     # Add other undo functions here
