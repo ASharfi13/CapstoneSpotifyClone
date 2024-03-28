@@ -1,6 +1,6 @@
 // ACTION TYPE CREATOR
 const LOAD_ALL_SONGS = "song/loadAllSongs";
-const CLEAR_RESTAURANTS = "song/clearSongs";
+const CLEAR_SONGS = "song/clearSongs";
 
 
 //ACTION CREATORS
@@ -35,7 +35,7 @@ const songReducer = (state = {}, action) => {
             ))
             return songsState
         }
-        case CLEAR_RESTAURANTS:
+        case CLEAR_SONGS:
             return {};
         default:
             return state
