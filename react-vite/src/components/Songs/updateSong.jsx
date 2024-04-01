@@ -17,12 +17,11 @@ function UpdateSong() {
 
     console.log("Song", song)
 
-    console.log(coverImg)
-
-
     useEffect(() => {
         dispatch(fetchSong(song_id));
-    }, [dispatch])
+        setTitle(song?.title)
+        setCoverImg(song?.cover_img)
+    }, [dispatch, song_id, song?.title, song?.cover_img])
 
     const handleSubmit = (e) => {
         e.preventDefault()
