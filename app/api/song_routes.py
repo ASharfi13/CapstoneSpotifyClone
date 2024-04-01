@@ -63,8 +63,6 @@ def upload_image():
         cover_image_file = form.cover_img.data
         artist_id = form.artist_id.data
 
-        print("HERE IS THE SONG AND IMAGE FILE FROM THE FORMDATA", song_file, cover_image_file)
-
         #Generates a unique file name
         unique_song_file_name = get_unique_filename(song_file.filename)
 
@@ -74,9 +72,6 @@ def upload_image():
         s3_audio_upload = upload_file_to_s3(song_file)
 
         s3_image_upload = upload_image_file_to_s3(cover_image_file)
-
-        print("LOOK HERE PLEASE, PLEASE LOOK HERE AUDIO**", s3_audio_upload)
-        print("LOOK HERE PLEASE, PLEASE LOOK HERE IMAGE**", s3_image_upload)
 
         if "url" in s3_audio_upload and "url" in s3_image_upload:
             s3_audio_upload_url = s3_audio_upload["url"]
@@ -114,3 +109,14 @@ def deleteSong(song_id):
     return json.dumps({
         "Message": "Successfully Deleted Song"
     })
+
+#EDIT A SONG at ["/api/songs/:song_id"]
+@song_routes.route("/<int:song_id>", methods=["PUT"])
+@login_required
+def updateSong(song_id):
+    song = Song.query.get(song_id)
+    if not song:
+        return json.dumps({
+            "Message": "Song Not Found"
+        })
+    
