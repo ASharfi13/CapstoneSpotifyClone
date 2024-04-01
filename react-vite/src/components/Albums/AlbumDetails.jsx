@@ -9,7 +9,9 @@ function AlbumDetails() {
 
     const album = useSelector((state) => state.albums)
 
-    console.log(album)
+    console.log("Album State", album)
+
+    console.log("Album Id", album_id)
 
     useEffect(() => {
         dispatch(fetchAlbum(album_id))

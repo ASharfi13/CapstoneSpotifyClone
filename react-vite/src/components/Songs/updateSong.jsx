@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, useNavigate, useParams } from "react-router-dom";
 import "./newSong.css"
-import { createNewSong, fetchSong } from "../../redux/songs";
+import { createNewSong, fetchSong, fetchUpdateSong } from "../../redux/songs";
 
 function UpdateSong() {
     const dispatch = useDispatch()
@@ -13,9 +13,18 @@ function UpdateSong() {
 
     const [title, setTitle] = useState(song?.title);
     const [coverImg, setCoverImg] = useState(song?.cover_img);
-    const [songUrl, setSongUrl] = useState(song?.songUrl);
+    const [newSong, setNewSong] = useState(song?.song_url);
+
+    const [errors, setErrors] = useState({})
 
     console.log("Song", song)
+
+    useEffect(() => {
+        const errObj = {}
+        console.log(title)
+        if (title && title.length === 0) errObj.title = "Title Is Required"
+        setErrors(errObj)
+    }, [title])
 
     useEffect(() => {
         dispatch(fetchSong(song_id));
@@ -25,6 +34,17 @@ function UpdateSong() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const updatedSong = new FormData
+        updatedSong.append("title", title)
+        updatedSong.append("song_url", newSong)
+        updatedSong.append("cover_img", coverImg)
+        updatedSong.append("artist_id", song?.artist_id)
+
+        if (Object.values(errors).length === 0) {
+            dispatch(fetchUpdateSong(song_id, updatedSong))
+        } else {
+            window.alert("Fill Everything Out Correctly")
+        }
     }
 
     return (
@@ -42,6 +62,7 @@ function UpdateSong() {
                         onChange={(e) => setTitle(e.target.value)}
                     >
                     </input>
+                    <p style={{ color: "red" }}>{errors.title ? errors.title : null}</p>
                 </div>
                 <div className="songAudioInput">
                     <label htmlFor="audioUpload">Song File Upload</label>
@@ -50,6 +71,7 @@ function UpdateSong() {
                         className="input-field"
                         type="file"
                         accept=".mp3"
+                        onChange={(e) => setNewSong(e.target.files[0])}
                     >
                     </input>
                 </div>
@@ -61,11 +83,12 @@ function UpdateSong() {
                         className="input-field"
                         type="file"
                         accept="image/*"
+                        onChange={(e) => setCoverImg(e.target.files[0])}
                     >
                     </input>
                 </div>
                 <button>
-                    Submit New Song
+                    Update Song
                 </button>
             </form>
         </>

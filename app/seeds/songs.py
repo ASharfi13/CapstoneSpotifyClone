@@ -15,7 +15,7 @@ def seed_songs():
     )
     song5 = Song(
         title="Song5", song_url="https://spotifycapstonecloneaudiofiles.s3.us-east-2.amazonaws.com/frank+ocean+-+thinkin+bout+you+(ryan+hemsworth+bootleg)%EF%B9%9Dslowed+reverb%EF%B9%9E.mp3",
-        cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/thinkinboutYouRemix.jpeg", artist_id=1
+        cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/focean.jpeg", artist_id=1
     )
 
     db.session.add(song1)

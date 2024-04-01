@@ -31,8 +31,9 @@ def getAllAlbums():
 @album_routes.route("/<int:album_id>")
 def getAlbumById(album_id):
     album = Album.query.get(album_id)
+    print("LOOK HERE", album)
     if not album:
         return json.dumps({
             "Message": "Album Not Found"
         })
-    return json.dumps(album.to_Dict()), 200
+    return album.to_Dict(), 200

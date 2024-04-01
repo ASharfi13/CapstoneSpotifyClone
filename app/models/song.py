@@ -22,6 +22,7 @@ class Song(db.Model):
             "title": self.title,
             "song_url": self.song_url,
             "album_id": self.album_id,
+            "artist_id": self.artist_id,
             "cover_img": self.cover_img,
             "created_at": str(self.createdAt)
         }

@@ -3,6 +3,7 @@ from flask import Blueprint, request
 from flask_login import login_required
 import json
 from app.forms.song_form import NewSong
+from app.forms.updateSong_form import UpdateSong
 from app.aws_audio_helpers import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 from app.aws_image_helpers import (upload_image_file_to_s3, get_image_unique_filename, remove_image_file_from_s3)
 
@@ -70,7 +71,6 @@ def upload_image():
 
         #Upload the file to the S3 Bucket
         s3_audio_upload = upload_file_to_s3(song_file)
-
         s3_image_upload = upload_image_file_to_s3(cover_image_file)
 
         if "url" in s3_audio_upload and "url" in s3_image_upload:
@@ -108,7 +108,7 @@ def deleteSong(song_id):
     db.session.commit()
     return json.dumps({
         "Message": "Successfully Deleted Song"
-    })
+    }), 200
 
 #EDIT A SONG at ["/api/songs/:song_id"]
 @song_routes.route("/<int:song_id>", methods=["PUT"])
@@ -119,4 +119,42 @@ def updateSong(song_id):
         return json.dumps({
             "Message": "Song Not Found"
         })
-    
+
+    form = UpdateSong()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        title = form.title.data
+
+        if form.song_url.data:
+            remove_file_from_s3(song.song_url)
+            song_file = form.song_url.data
+            unique_song_file_name = get_unique_filename(song_file.filename)
+            s3_audio_upload = upload_file_to_s3(song_file)
+            if "url" in s3_audio_upload:
+                song.song_url = s3_audio_upload["url"]
+            else:
+                return {"Error": "Song Upload Failed"}, 400
+
+        if form.cover_img.data:
+            remove_image_file_from_s3(song.cover_img)
+            cover_image_file = form.cover_img.data
+            unique_image_file_name = get_image_unique_filename(cover_image_file.filename)
+            s3_image_upload = upload_image_file_to_s3(cover_image_file)
+            if "url" in s3_image_upload:
+                song.cover_img = s3_image_upload["url"]
+            else:
+                return {"Error": "Cover Image Upload Failed"}, 400
+
+        song.title = title
+
+        print("NEW SONG HERE", song)
+
+        db.session.commit()
+        return json.dumps({
+            "New Song": song.to_Dict()
+        })
+    else:
+        return json.dumps({
+            "Error": form.errors
+        }), 400
