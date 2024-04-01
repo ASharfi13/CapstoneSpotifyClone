@@ -15,6 +15,7 @@ class Song(db.Model):
     createdAt = db.Column(db.Date, default=dt.datetime.now())
     updatedAt = db.Column(db.Date, default=dt.datetime.now())
 
+
     def to_Dict(self):
         return {
             "id": self.id,

@@ -26,12 +26,13 @@ def getAllAlbums():
 
     return json.dumps({"albums":formattedAlbums})
 
-#GET ALBUM DETAILS at ["api/albums/:albumId"]
-@album_routes.route("/<int:id>")
-def getAlbumById(id):
-    album = Album.query.get(id)
+
+#GET ALBUM DETAILS BY ID at ["api/albums/:albumId"]
+@album_routes.route("/<int:album_id>")
+def getAlbumById(album_id):
+    album = Album.query.get(album_id)
     if not album:
         return json.dumps({
             "Message": "Album Not Found"
         })
-    return json.dumps(album.to_Dict())
+    return json.dumps(album.to_Dict()), 200
