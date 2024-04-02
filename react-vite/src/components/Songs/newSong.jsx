@@ -32,7 +32,7 @@ function NewSong() {
 
         if (Object.values(errors).length === 0) {
             dispatch(createNewSong(newSong)).then(
-                navigate("/")
+                window.alert("Request Sent Out")
             )
         } else {
             window.alert("Fill Everything Correctly")

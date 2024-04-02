@@ -73,6 +73,10 @@ def upload_image():
         s3_audio_upload = upload_file_to_s3(song_file)
         s3_image_upload = upload_image_file_to_s3(cover_image_file)
 
+        print("***************************IMAGE UPLOAD", s3_image_upload)
+
+        print("***************************AUDIO UPLOAD", s3_audio_upload)
+
         if "url" in s3_audio_upload and "url" in s3_image_upload:
             s3_audio_upload_url = s3_audio_upload["url"]
             s3_image_upload_url = s3_image_upload["url"]
