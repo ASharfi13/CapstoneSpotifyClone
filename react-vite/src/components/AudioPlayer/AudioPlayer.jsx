@@ -4,6 +4,7 @@ import { useSongPlaying } from '../../context/Song';
 
 
 function SongPlayer() {
+    const example = 1
 
     const { song } = useSongPlaying();
 
