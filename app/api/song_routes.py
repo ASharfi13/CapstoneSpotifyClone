@@ -65,9 +65,9 @@ def upload_image():
         artist_id = form.artist_id.data
 
         #Generates a unique file name
-        unique_song_file_name = get_unique_filename(song_file.filename)
+        song_file.filename = get_unique_filename(song_file.filename)
 
-        unique_image_file_name = get_image_unique_filename(cover_image_file.filename)
+        cover_image_file.filename = get_image_unique_filename(cover_image_file.filename)
 
         #Upload the file to the S3 Bucket
         s3_audio_upload = upload_file_to_s3(song_file)
@@ -100,7 +100,7 @@ def deleteSong(song_id):
     if not song:
         return json.dumps({
             "Message": "Song Not Found"
-        })
+        }), 404
     remove_file_from_s3(song.song_url)
     remove_image_file_from_s3(song.cover_img)
 
@@ -147,8 +147,6 @@ def updateSong(song_id):
                 return {"Error": "Cover Image Upload Failed"}, 400
 
         song.title = title
-
-        print("NEW SONG HERE", song)
 
         db.session.commit()
         return json.dumps({

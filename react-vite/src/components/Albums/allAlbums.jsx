@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { fetchAllAlbums } from "../../redux/albums";
+import { fetchAllAlbums, fetchDeleteAlbum } from "../../redux/albums";
 
 
 function AllAlbums() {
@@ -13,6 +13,13 @@ function AllAlbums() {
     useEffect(() => {
         dispatch(fetchAllAlbums())
     }, [dispatch])
+
+    const handleDelete = async (e, album_id) => {
+        e.preventDefault()
+        dispatch(fetchDeleteAlbum(album_id)).then(
+            window.alert("Album Deleted")
+        )
+    }
 
 
     return (
@@ -26,6 +33,10 @@ function AllAlbums() {
                         <img className="songImg" src={album.cover_img}></img>
                         <p>{album.title}</p>
                         <p>{album.genre} • {album.artist?.first_name} {album.artist?.last_name}</p>
+                        <div>
+                            <button onClick={() => navigate(`/albums/${album?.id}/update`)}>Update</button>
+                            <button onClick={(e) => handleDelete(e, album?.id)}>Delete</button>
+                        </div>
                     </div>
                 ))}
             </div>

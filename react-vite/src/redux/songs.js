@@ -100,7 +100,7 @@ export const fetchUpdateSong = (song_id, song) => async (dispatch) => {
         dispatch(updateSong(song))
         return song
     } else {
-        console.log("Something went wrong in the thunk"), 400
+        console.log("Something went wrong in the thunk")
     }
 }
 
@@ -111,7 +111,7 @@ export const removeSong = (song_id) => async (dispatch) => {
 
     if (response.ok) {
         const song = await response.json()
-        dispatch(deleteSong(song))
+        dispatch(deleteSong(song_id))
         return song
     } else {
         console.log("Something went wrong in the thunk"), 400

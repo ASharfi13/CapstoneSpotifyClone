@@ -6,6 +6,8 @@ import LandingPage from '../components/LandingPage/LandingPage';
 import NewSong from '../components/Songs/newSong';
 import AlbumDetails from '../components/Albums/AlbumDetails';
 import UpdateSong from '../components/Songs/updateSong';
+import NewAlbum from '../components/Albums/newAlbum';
+import UpdateAlbum from '../components/Albums/updateAlbum';
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ export const router = createBrowserRouter([
       {
         path: "/songs/:song_id/update",
         element: <UpdateSong />
+      },
+      {
+        path: "/albums/new",
+        element: <NewAlbum />
+      },
+      {
+        path: "/albums/:album_id/update",
+        element: <UpdateAlbum />
       }
     ],
   },

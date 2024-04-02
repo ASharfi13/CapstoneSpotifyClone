@@ -32,7 +32,7 @@ function UpdateSong() {
         setCoverImg(song?.cover_img)
     }, [dispatch, song_id, song?.title, song?.cover_img])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const updatedSong = new FormData
         updatedSong.append("title", title)
@@ -76,7 +76,7 @@ function UpdateSong() {
                     </input>
                 </div>
                 <div className="songImageInput">
-                    <img className="songImg" src={coverImg}></img>
+                    <img className="songImg" src={song?.cover_img}></img>
                     <label htmlFor="imageUpload">Cover Image Upload</label>
                     <input
                         id="imageUpload"

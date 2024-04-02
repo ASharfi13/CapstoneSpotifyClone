@@ -22,7 +22,7 @@ function NewSong() {
         setErrors(errObj)
     }, [title])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newSong = new FormData()
         newSong.append("title", title)
