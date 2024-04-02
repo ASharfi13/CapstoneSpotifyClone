@@ -41,7 +41,9 @@ function UpdateSong() {
         updatedSong.append("artist_id", song?.artist_id)
 
         if (Object.values(errors).length === 0) {
-            dispatch(fetchUpdateSong(song_id, updatedSong))
+            dispatch(fetchUpdateSong(song_id, updatedSong)).then(
+                window.alert("Request Sent")
+            )
         } else {
             window.alert("Fill Everything Out Correctly")
         }
