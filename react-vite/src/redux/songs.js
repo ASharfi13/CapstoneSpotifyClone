@@ -132,10 +132,10 @@ const songReducer = (state = {}, action) => {
             return { ...state, [action.song.id]: action.song }
         }
         case ADD_NEW_SONG: {
-            return { ...state, [action.song.id]: action.song }
+            return { ...state, ...action.song }
         }
         case UPDATE_SONG: {
-            return { ...state, [action.song.id]: action.song }
+            return { ...state, ...action.song }
         }
         case DELETE_SONG: {
             const currState = { ...state }

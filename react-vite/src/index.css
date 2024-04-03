@@ -1,1 +1,15 @@
 /* TODO: Add sitewide styles */
+:root {
+    --purple: #A065FF;
+    --darkp: #5218B0;
+    --lightp: #D9C4FF;
+}
+
+label {
+    color: black;
+}
+
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: linear-gradient(to bottom, black 20%, var(--purple) 150%);
+}

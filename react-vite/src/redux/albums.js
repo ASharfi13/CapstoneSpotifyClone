@@ -133,10 +133,10 @@ const albumReducer = (state = {}, action) => {
             return { ...state, [action.album.id]: action.album }
         }
         case ADD_NEW_ALBUM: {
-            return { ...state, [action.album.id]: action.album }
+            return { ...state, ...action.album }
         }
         case UPDATE_ALBUM: {
-            return { ...state, [action.album.id]: action.album }
+            return { ...state, ...action.album }
         }
         case DELETE_ALBUM: {
             const currState = { ...state }

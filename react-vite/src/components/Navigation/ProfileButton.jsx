@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from 'react-icons/fa';
+// import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { BsThreeDots } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
+
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -41,35 +44,47 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
-      </button>
-      {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
-        </ul>
-      )}
+      <div className="ProfileContainer">
+        <button className="ProfileButton" onClick={toggleMenu}>
+          {user ? <span style={{ fontSize: "20px", padding: "10px" }}>{user?.first_name}</span> : <BsThreeDots size={25} />}
+        </button>
+        {showMenu && (
+          <div className={"profile-dropdown"} ref={ulRef}>
+            {user ? (
+              <>
+                <p>{user.username}</p>
+                <p>{user.email}</p>
+                <p>
+                  <button onClick={logout}>Log Out</button>
+                </p>
+                <NavLink className={"profileNavs"} to={"/songs/new"}>
+                  Drop New Song
+                </NavLink>
+                <NavLink className={"profileNavs"} to={"/albums/new"}>
+                  Drop New Album
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <span className="dropDownItem">
+                  <OpenModalMenuItem
+                    itemText="Log In"
+                    onItemClick={closeMenu}
+                    modalComponent={<LoginFormModal />}
+                  />
+                </span>
+                <span className="dropDownItem">
+                  <OpenModalMenuItem
+                    itemText="Sign Up"
+                    onItemClick={closeMenu}
+                    modalComponent={<SignupFormModal />}
+                  />
+                </span>
+              </>
+            )}
+          </div>
+        )}
+      </div >
     </>
   );
 }

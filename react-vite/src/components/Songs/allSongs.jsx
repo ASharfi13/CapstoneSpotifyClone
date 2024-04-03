@@ -14,6 +14,8 @@ function AllSongs() {
 
     const songs = useSelector((state) => state.songs)
     const albums = useSelector((state) => state.albums)
+    const user = useSelector((state) => state.session.user)
+
     const songsArr = Object.values(songs)
 
     useEffect(() => {
@@ -25,28 +27,31 @@ function AllSongs() {
 
     const handleDelete = async (e, song_id) => {
         e.preventDefault();
-        dispatch(removeSong(song_id)).then(
-            navigate("/")
-        )
+        await dispatch(removeSong(song_id))
+        navigate("/")
     }
 
     return (
         <>
-            <h1>
-                This Is The Songs Component
-            </h1>
-            <div className="songContainer">
-                {songsArr.map((song, idx) => (
-                    <div onClick={() => setSong(song?.song_url)} className="songCard" key={idx}>
-                        <img className="songImg" src={song?.cover_img}></img>
-                        <p>{song?.title}</p>
-                        <p> {albums[song?.album_id]?.title || "Single"}  • {song?.artist?.first_name} {song?.artist?.last_name}</p>
-                        <div className="function buttons">
-                            <button onClick={() => navigate(`/songs/${song?.id}/update`)}> Update</button>
-                            <button onClick={(e) => handleDelete(e, song?.id)}> Delete</button>
+            <div className="landingBodyCard">
+                <h1 className="bodyCardHeading">
+                    Top Songs
+                </h1>
+                <div className="songContainer">
+                    {songsArr.map((song, idx) => (
+                        <div className="songCard" key={idx}>
+                            <img onClick={() => setSong(song?.song_url)} className="songImg" src={song?.cover_img}></img>
+                            <div className="songInfo">
+                                <h3>{song?.title}</h3>
+                                <p className="songInfoText"> {albums[song?.album_id]?.title || "Single"}  • {song?.artist?.first_name} {song?.artist?.last_name}</p>
+                            </div>
+                            {song?.artist_id === user?.id ? (<div>
+                                <button onClick={() => navigate(`/songs/${song?.id}/update`)}>Update</button>
+                                <button onClick={(e) => handleDelete(e, song?.id)}>Delete</button>
+                            </div>) : null}
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </>
     )

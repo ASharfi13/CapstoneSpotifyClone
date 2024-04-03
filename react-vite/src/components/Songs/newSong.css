@@ -1,1 +1,12 @@
+.songInput {
+    padding: 20px;
+    color: white;
+}
 
+.inputLabel {
+    color: white;
+}
+
+.inputForm {
+    height: 50vmax;
+}

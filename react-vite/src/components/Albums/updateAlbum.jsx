@@ -18,6 +18,7 @@ function UpdateAlbum() {
     const [genre, setGenre] = useState(album?.genre)
     const [coverImg, setCoverImg] = useState(null)
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const errObj = {}
@@ -43,58 +44,63 @@ function UpdateAlbum() {
         updatedAlbum.append("artist_id", user?.id)
 
         if (Object.values(errors).length === 0) {
-            dispatch(fetchUpdateAlbum(album_id, updatedAlbum)).then(
-                window.alert("Album Updated")
-            )
+            await dispatch(fetchUpdateAlbum(album_id, updatedAlbum))
         } else {
             window.alert("Fill Everything Out")
         }
+
+        navigate("/")
     }
 
 
     return (
         <>
             <h1>This Is the Update Album Form</h1>
-            <form
-                encType="multipart/form-data"
-                onSubmit={handleSubmit}
-            >
-                <p>Album Title</p>
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+            {!loading ? (
+                <form
+                    encType="multipart/form-data"
+                    onSubmit={handleSubmit}
+                    className="inputForm"
                 >
-                </input>
-                <p style={{ color: "red" }}>{errors.title ? errors.title : null}</p>
-                <div>
-                    <select
-                        value={genre}
-                        onChange={(e) => setGenre(e.target.value)}
-                    >
-                        <option value={""} disabled defaultValue={""}>Select One</option>
-                        {genresArr.map((opp, idx) => (
-                            <option key={idx} value={opp}> {opp} </option>
-                        ))}
-                    </select>
-
-                </div>
-
-                <div>
-                    <img className="songImg" src={album?.cover_img}></img>
-                    <label htmlFor="imgUpload">Cover Img Upload</label>
+                    <p>Album Title</p>
                     <input
-                        id="imgUpload"
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setCoverImg(e.target.files[0])}
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     >
                     </input>
-                </div>
+                    <p style={{ color: "red" }}>{errors.title ? errors.title : null}</p>
+                    <div>
+                        <select
+                            value={genre}
+                            onChange={(e) => setGenre(e.target.value)}
+                        >
+                            <option value={""} disabled defaultValue={""}>Select One</option>
+                            {genresArr.map((opp, idx) => (
+                                <option key={idx} value={opp}> {opp} </option>
+                            ))}
+                        </select>
 
-                <button>Submit</button>
+                    </div>
 
-            </form>
+                    <div>
+                        <img className="songImg" src={album?.cover_img}></img>
+                        <label className="inputLabel" htmlFor="imgUpload">Cover Img Upload</label>
+                        <input
+                            id="imgUpload"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setCoverImg(e.target.files[0])}
+                            className="songInput"
+                        >
+                        </input>
+                    </div>
+
+                    <button>Submit</button>
+
+                </form>
+            ) : <h1>Loading...</h1>}
+
         </>
     )
 }

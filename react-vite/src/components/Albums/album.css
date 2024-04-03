@@ -1,4 +1,79 @@
 .albumSongCard {
     display: flex;
-    border: 2px solid green;
+    width: 98%;
+    justify-content: space-between;
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    border: 2px solid var(--darkp);
+}
+
+.albumHeader {
+    display: flex;
+    height: 350px;
+    background: linear-gradient(to bottom, var(--darkp) 0%, black 120%);
+    border-radius: 20px;
+}
+
+.albumCardImg {
+    max-width: 290px;
+    max-height: 290px;
+    min-height: 290px;
+    min-width: 290px;
+
+    margin: 40px;
+    border-radius: 15px;
+    border: 2px solid var(--darkp);
+}
+
+.albumHeaderInfo {
+    line-height: 0.8;
+}
+
+.albumSongs {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, var(--darkp) 0%, black 220%);
+    align-items: center;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.albumSongsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    width: 100%;
+    align-items: center;
+}
+
+.songLabels {
+    border-bottom: 2px solid var(--darkp);
+    width: 98%;
+    color: white;
+}
+
+.songTitleAlign {
+    display: flex;
+    width: 80px;
+    justify-content: space-between;
+}
+
+.albumBody {
+    background: linear-gradient(to bottom, black 0%, var(--darkp) 140%);
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.iconItemsAlign {
+    display: flex;
+    width: 15%;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 30px;
 }
