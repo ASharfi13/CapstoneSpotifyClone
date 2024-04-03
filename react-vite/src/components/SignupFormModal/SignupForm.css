@@ -1,0 +1,12 @@
+.modalSignLogErrors {
+    color: red;
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalInput {
+    margin: 10px;
+}
