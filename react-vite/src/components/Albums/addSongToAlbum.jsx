@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, useNavigate } from "react-router-dom";
-import "./newSong.css"
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchAlbum } from "../../redux/albums";
 import { createNewSong } from "../../redux/songs";
 
-function NewSong() {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
 
+function AddSongToAlbum() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { album_id } = useParams();
+
+    const album = useSelector((state) => state.albums[album_id])
     const user = useSelector((state) => state.session.user)
 
     const [title, setTitle] = useState("")
@@ -25,6 +28,10 @@ function NewSong() {
         setErrors(errObj)
     }, [title, image, song])
 
+    useEffect(() => {
+        dispatch(fetchAlbum(album_id));
+    }, [dispatch])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newSong = new FormData()
@@ -32,17 +39,16 @@ function NewSong() {
         newSong.append("song_url", song)
         newSong.append("cover_img", image)
         newSong.append("artist_id", user?.id)
+        newSong.append("album_id", album_id)
 
         if (Object.values(errors).length === 0) {
             setLoading(true)
             await dispatch(createNewSong(newSong))
-            navigate("/")
+            navigate(`/albums/${album_id}`)
         } else {
             window.alert("Fill Everything Correctly")
         }
     }
-
-    console.log("Image", image)
 
     return (
         <>
@@ -53,7 +59,10 @@ function NewSong() {
                         encType="multipart/form-data"
                         className="inputForm"
                     >
-                        <h1 className="formTitle">Add A New Song</h1>
+                        <div>
+                            <img className="newSongAlbumImgCard" src={album?.cover_img} />
+                        </div>
+                        <h1 className="formTitle">Add A New Song To {album?.title}</h1>
                         <div className="songTitle">
                             <label className="inputLabel" htmlFor="songTitle">
                                 Song Title
@@ -97,10 +106,9 @@ function NewSong() {
                         </button>
                     </form>
                 ) : <h1>Loading...</h1>}
-
             </div>
         </>
     )
 }
 
-export default NewSong
+export default AddSongToAlbum

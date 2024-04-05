@@ -42,8 +42,8 @@ def undo():
     undo_users()
     undo_albums()
     undo_songs()
-    seed_likes()
-    seed_playlists()
-    seed_song_playlists()
+    undo_likes()
+    undo_playlists()
+    undo_song_playlists()
 
     # Add other undo functions here

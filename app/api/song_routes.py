@@ -63,6 +63,7 @@ def upload_image():
         song_file = form.song_url.data
         cover_image_file = form.cover_img.data
         artist_id = form.artist_id.data
+        album_id = form.album_id.data
 
         #Generates a unique file name
         song_file.filename = get_unique_filename(song_file.filename)
@@ -86,7 +87,8 @@ def upload_image():
                 title = title,
                 song_url=s3_audio_upload_url,
                 cover_img=s3_image_upload_url,
-                artist_id=artist_id
+                artist_id=artist_id,
+                album_id= album_id
             )
             db.session.add(newSong)
             db.session.commit()

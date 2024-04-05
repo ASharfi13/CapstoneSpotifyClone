@@ -55,52 +55,68 @@ function UpdateAlbum() {
 
     return (
         <>
-            <h1>This Is the Update Album Form</h1>
-            {!loading ? (
-                <form
-                    encType="multipart/form-data"
-                    onSubmit={handleSubmit}
-                    className="inputForm"
-                >
-                    <p>Album Title</p>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+            <div className="formContainer">
+                {!loading ? (
+                    <form
+                        encType="multipart/form-data"
+                        onSubmit={handleSubmit}
+                        className="inputForm"
                     >
-                    </input>
-                    <p style={{ color: "red" }}>{errors.title ? errors.title : null}</p>
-                    <div>
-                        <select
-                            value={genre}
-                            onChange={(e) => setGenre(e.target.value)}
-                        >
-                            <option value={""} disabled defaultValue={""}>Select One</option>
-                            {genresArr.map((opp, idx) => (
-                                <option key={idx} value={opp}> {opp} </option>
-                            ))}
-                        </select>
+                        <h1 className="formTitle">Change Up Your Album</h1>
+                        <div className="songTitle">
+                            <label className="inputLabel" htmlFor="songTitle">
+                                Album Title
+                                <input
+                                    id="songTitle"
+                                    className="songTitleInput"
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                >
+                                </input>
+                            </label>
+                            <p style={{ color: "red" }}>{errors.title ? errors.title : null}</p>
+                        </div>
+                        <div>
+                            <label className="inputLabel" htmlFor="genreInput">
+                                Genre
+                                <select
+                                    id="genreInput"
+                                    className="genreSelectInput"
+                                    value={genre}
+                                    onChange={(e) => setGenre(e.target.value)}
+                                >
+                                    <option value={""} disabled defaultValue={""}>Select One</option>
+                                    {genresArr.map((opp, idx) => (
+                                        <option key={idx} value={opp}> {opp} </option>
+                                    ))}
+                                </select>
+                            </label>
+                        </div>
 
-                    </div>
+                        <div className="updateCoverImg">
+                            <img className="songImg" src={album?.cover_img}></img>
+                            <label className="inputLabel" htmlFor="imgUpload">
+                                Upload A New Cover Image
+                                <input
+                                    id="imgUpload"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setCoverImg(e.target.files[0])}
+                                    className="songInput"
+                                >
+                                </input>
+                            </label>
+                        </div>
 
-                    <div>
-                        <img className="songImg" src={album?.cover_img}></img>
-                        <label className="inputLabel" htmlFor="imgUpload">Cover Img Upload</label>
-                        <input
-                            id="imgUpload"
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setCoverImg(e.target.files[0])}
-                            className="songInput"
-                        >
-                        </input>
-                    </div>
+                        <button className="formButton">Submit</button>
 
-                    <button>Submit</button>
-
-                </form>
-            ) : <h1>Loading...</h1>}
-
+                        <div className="updateWarning">
+                            <p>* Not Uploading A New Image File will result in the original file remaining</p>
+                        </div>
+                    </form>
+                ) : <h1>Loading...</h1>}
+            </div>
         </>
     )
 }

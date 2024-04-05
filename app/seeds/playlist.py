@@ -4,10 +4,10 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_playlists():
-    playlist1 = Playlist(description="For all the great Jazz lovers, this one is definitely for you!", user_id=1)
-    playlist2 = Playlist(description="Let's Rock and Roll! All the greatest rock hits for the Rock lovers!", user_id=2)
-    playlist3 = Playlist(description="This is my weird playlist. All the songs here are weird and I love it! Don't judge!", user_id=1)
-    playlist4 = Playlist(description="I like to listen to a variety of music, come take a musical journey with me in through this playlist", user_id=3)
+    playlist1 = Playlist(title="Jazzy Vibes", cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/jazzplaylist.png", description="For all the great Jazz lovers, this one is definitely for you!", user_id=1)
+    playlist2 = Playlist(title="Let's Rock", cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/rockPlaylist.png", description="Let's Rock and Roll! All the greatest rock hits for the Rock lovers!", user_id=2)
+    playlist3 = Playlist(title="I'm Weird", cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/weirdPlaylist.png", description="This is my weird playlist. All the songs here are weird and I love it! Don't judge!", user_id=1)
+    playlist4 = Playlist(title="Everything Everywhere", cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/varietyPlaylist.png", description="I like to listen to a variety of music, come take a musical journey with me in through this playlist", user_id=3)
 
     db.session.add(playlist1)
     db.session.add(playlist2)

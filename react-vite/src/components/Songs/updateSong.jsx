@@ -22,10 +22,11 @@ function UpdateSong() {
 
     useEffect(() => {
         const errObj = {}
-        console.log(title)
         if (title && title.length === 0) errObj.title = "Title Is Required"
         setErrors(errObj)
     }, [title])
+
+    console.log("CoverImg", coverImg)
 
     useEffect(() => {
         dispatch(fetchSong(song_id));
@@ -53,51 +54,64 @@ function UpdateSong() {
 
     return (
         <>
-            <h1>This is the Update Song Form Component</h1>
-            {!loading ? (
-                <form
-                    onSubmit={handleSubmit}
-                    encType="multipart/form-data"
-                    className="inputForm"
-                >
-                    <div className="songTitle">
-                        <p>Song Title</p>
-                        <input
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        >
-                        </input>
-                        <p style={{ color: "red" }}>{errors.title ? errors.title : null}</p>
-                    </div>
-                    <div className="songAudioInput">
-                        <label className="inputLabel" htmlFor="audioUpload">Song File Upload</label>
-                        <input
-                            id="audioUpload"
-                            className="songInput"
-                            type="file"
-                            accept=".mp3"
-                            onChange={(e) => setNewSong(e.target.files[0])}
-                        >
-                        </input>
-                    </div>
-                    <div className="songImageInput">
-                        <img className="songImg" src={song?.cover_img}></img>
-                        <label className="inputLabel" htmlFor="imageUpload">Cover Image Upload</label>
-                        <input
-                            id="imageUpload"
-                            className="songInput"
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setCoverImg(e.target.files[0])}
-                        >
-                        </input>
-                    </div>
-                    <button>
-                        Update Song
-                    </button>
-                </form>
-            ) : <h1>Loading...</h1>}
+            <div className="formContainer">
+                {!loading ? (
+                    <form
+                        onSubmit={handleSubmit}
+                        encType="multipart/form-data"
+                        className="inputForm"
+                    >
+                        <h1 className="formTitle">Change Up Your Song</h1>
+                        <div className="songTitle">
+                            <label className="inputLabel" htmlFor="songTitle">
+                                Song Title
+                                <input
+                                    id="songTitle"
+                                    className="songTitleInput"
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                >
+                                </input>
+                            </label>
+                            <p style={{ color: "red" }}>{errors.title ? errors.title : null}</p>
+                        </div>
+                        <div className="songAudioInput">
+                            <label className="inputLabel" htmlFor="audioUpload">
+                                Choose New Song
+                                <input
+                                    id="audioUpload"
+                                    className="songInput"
+                                    type="file"
+                                    accept=".mp3"
+                                    onChange={(e) => setNewSong(e.target.files[0])}
+                                >
+                                </input>
+                            </label>
+                        </div>
+                        <div className="updateCoverImg">
+                            <img className="songImg" src={song?.cover_img}></img>
+                            <label className="inputLabel" htmlFor="imageUpload">
+                                Choose New Cover Image
+                                <input
+                                    id="imageUpload"
+                                    className="songInput"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setCoverImg(e.target.files[0])}
+                                >
+                                </input>
+                            </label>
+                        </div>
+                        <button className="formButton">
+                            Submit
+                        </button>
+                        <div className="updateWarning">
+                            <p>* Not Uploading A New Song or Image File will result in the original files remaining</p>
+                        </div>
+                    </form>
+                ) : <h1>Loading...</h1>}
+            </div>
         </>
     )
 }

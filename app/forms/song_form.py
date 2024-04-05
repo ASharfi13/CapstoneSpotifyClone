@@ -13,4 +13,5 @@ class NewSong(FlaskForm):
     song_url = FileField("Audio File", validators=[FileRequired(), FileAllowed(list(ALLOWED_AUDIO_EXTENSIONS))])
     cover_img = FileField("Image File", validators=[FileRequired(), FileAllowed(ALLOWED_IMAGE_EXTENSIONS)])
     artist_id = IntegerField("Artist Id", validators=[DataRequired("Artist Id is Required")])
+    album_id = IntegerField("Album Id")
     submit = SubmitField("Upload Audio File")

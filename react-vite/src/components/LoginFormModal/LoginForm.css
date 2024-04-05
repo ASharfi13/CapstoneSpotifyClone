@@ -1,0 +1,56 @@
+.modalContainer {
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(var(--darkp), rgba(0.15, 0.15, 0.15, 1));
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modalInput {
+    padding: 10px;
+    color: white;
+}
+
+.modalInfo {
+    margin: 5px;
+    border-radius: 10px;
+    height: 20px;
+    width: 180px;
+}
+
+.modalButton {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(var(--purple), var(--darkp));
+    color: white;
+    font-style: italic;
+    cursor: pointer;
+    align-self: center;
+}
+
+.modalButton:hover {
+    background: linear-gradient(var(--darkp), rgba(0.15, 0.15, 0.15, 1));
+}
+
+.modalLabel {
+    color: white;
+
+}
+
+.signUpModalInput {
+    border-bottom: 1px solid var(--purple);
+    width: 95%;
+    margin: 5px;
+    padding: 5px;
+    color: white;
+}

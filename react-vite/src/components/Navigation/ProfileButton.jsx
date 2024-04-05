@@ -6,11 +6,12 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { BsThreeDots } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 function ProfileButton() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -36,10 +37,11 @@ function ProfileButton() {
 
   const closeMenu = () => setShowMenu(false);
 
-  const logout = (e) => {
+  const logout = async (e) => {
     e.preventDefault();
-    dispatch(thunkLogout());
+    await dispatch(thunkLogout());
     closeMenu();
+    navigate("/")
   };
 
   return (
@@ -55,7 +57,7 @@ function ProfileButton() {
                 <p>{user.username}</p>
                 <p>{user.email}</p>
                 <p>
-                  <button onClick={logout}>Log Out</button>
+                  <p className="dropDownLink" onClick={logout}>Log Out</p>
                 </p>
                 <NavLink className={"profileNavs"} to={"/songs/new"}>
                   Drop New Song

@@ -1,11 +1,18 @@
 import AllSongs from "../Songs/allSongs"
 import AllAlbums from "../Albums/allAlbums"
+import MyPlaylists from "../Playlists/myPlaylists"
+import "./LandingPage.css"
 
 function LandingPage() {
     return (
         <>
-            <AllSongs />
-            <AllAlbums />
+            <div className="landingLayout">
+                <MyPlaylists />
+                <div>
+                    <AllSongs />
+                    <AllAlbums />
+                </div>
+            </div>
         </>
     )
 }

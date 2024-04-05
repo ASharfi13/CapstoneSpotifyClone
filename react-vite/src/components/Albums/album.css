@@ -77,3 +77,18 @@
     align-items: center;
     margin-right: 30px;
 }
+
+.newSongAlbumImgCard {
+    max-width: 200px;
+    max-height: 200px;
+    min-height: 200px;
+    min-width: 200px;
+
+    border: 2px solid var(--purple);
+    border-radius: 20px;
+}
+
+.addSongToAlbumButton:hover {
+    cursor: pointer;
+    color: var(--purple);
+}

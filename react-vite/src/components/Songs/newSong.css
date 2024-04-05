@@ -1,12 +1,82 @@
 .songInput {
     padding: 20px;
-    color: white;
 }
 
 .inputLabel {
-    color: white;
+    margin: 8px;
 }
 
 .inputForm {
-    height: 50vmax;
+    display: flex;
+    flex-direction: column;
+    margin: 100px;
+    align-items: center;
+    padding: 50px;
+    background: linear-gradient(white, var(--purple));
+    border-radius: 20px;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.songTitleInput {
+    margin: 5px;
+    border-radius: 5px;
+    height: 30px;
+    width: 170px;
+}
+
+.input-field {
+    color: black;
+}
+
+.formTitle {
+    background: linear-gradient(var(--purple), var(--darkp));
+    background-clip: text;
+    color: transparent;
+    font-size: 50px;
+}
+
+.errorMessages {
+    background: linear-gradient(red, maroon);
+    background-clip: text;
+    color: transparent;
+}
+
+.formButton {
+    height: 60px;
+    width: 200px;
+    border-radius: 50px;
+    font-size: 18px;
+    color: seashell;
+    background: linear-gradient(var(--darkp), black);
+    border: 1px solid var(--darkp);
+    cursor: pointer;
+}
+
+.formButton:hover {
+    background: linear-gradient(var(--purple), black);
+}
+
+.genreSelectInput {
+    height: 30px;
+    width: 120px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.updateCoverImg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.updateWarning {
+    color: var(--darkp);
 }

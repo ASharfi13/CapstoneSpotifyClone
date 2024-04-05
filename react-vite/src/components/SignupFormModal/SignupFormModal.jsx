@@ -43,82 +43,82 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      {errors.server && <p className="modalSignLogErrors">{errors.server}</p>}
+    <div className="modalContainer">
       <form
         onSubmit={handleSubmit}
         className="modalForm"
       >
-        <label>
+        <h1>Sign Up</h1>
+        {errors.server && <p className="modalSignLogErrors">{errors.server}</p>}
+        <label className="signUpModalInput">
           Email
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="modalInput"
+            className="modalInfo"
           />
         </label>
         {errors.email && <p className="modalSignLogErrors">{errors.email}</p>}
-        <label>
+        <label className="signUpModalInput">
           Username
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            className="modalInput"
+            className="modalInfo"
           />
         </label>
         {errors.username && <p className="modalSignLogErrors">{errors.username}</p>}
-        <label>
+        <label className="signUpModalInput">
           First Name
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="modalInput"
+            className="modalInfo"
           />
         </label>
         {errors.first_name && <p className="modalSignLogErrors">{errors.first_name}</p>}
-        <label>
+        <label className="signUpModalInput">
           Last Name
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
-            className="modalInput"
+            className="modalInfo"
           />
         </label>
         {errors.last_name && <p className="modalSignLogErrors">{errors.last_name}</p>}
-        <label>
+        <label className="signUpModalInput">
           Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="modalInput"
+            className="modalInfo"
           />
         </label>
         {errors.password && <p className="modalSignLogErrors">{errors.password}</p>}
-        <label>
+        <label className="signUpModalInput">
           Confirm Password
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="modalInput"
+            className="modalInfo"
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button className="modalInput" type="submit">Sign Up</button>
+        {errors.confirmPassword && <p className="modalSignLogErrors">{errors.confirmPassword}</p>}
+        <button className="modalButton" type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

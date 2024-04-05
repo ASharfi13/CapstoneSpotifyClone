@@ -6,6 +6,7 @@ import { thunkAuthenticate } from "../redux/session";
 import Navigation from "../components/Navigation/Navigation";
 import { SongPlayingProvider } from "../context/Song";
 import SongPlayer from "../components/AudioPlayer/AudioPlayer";
+import MyPlaylists from "../components/Playlists/myPlaylists";
 
 
 export default function Layout() {
@@ -20,6 +21,8 @@ export default function Layout() {
       <ModalProvider>
         <SongPlayingProvider>
           <Navigation />
+          <div>
+          </div>
           {isLoaded && <Outlet />}
           <Modal />
           <SongPlayer />

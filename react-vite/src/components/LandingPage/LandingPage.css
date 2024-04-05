@@ -1,0 +1,4 @@
+.landingLayout {
+    display: flex;
+    flex-direction: row;
+}

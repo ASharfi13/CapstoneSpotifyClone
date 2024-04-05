@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAlbum } from "../../redux/albums";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaCirclePlay } from "react-icons/fa6";
 import "./album.css"
 
 function AlbumDetails() {
-    const { album_id } = useParams()
-    const dispatch = useDispatch()
+    const { album_id } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [showMenu, setShowMenu] = useState(false);
+    const ulRef = useRef();
 
-    const album = useSelector((state) => state.albums[album_id])
+    const closeMenu = () => setShowMenu(false);
+
+    const album = useSelector((state) => state.albums[album_id]);
+    const user = useSelector((state) => state.session.user);
 
     const albumYear = album?.created_at?.slice(0, 4)
-
-    console.log(albumYear)
-
-    console.log("Album State", album)
 
     useEffect(() => {
         dispatch(fetchAlbum(album_id))
@@ -56,6 +58,11 @@ function AlbumDetails() {
                                 </div>
                             </div>
                         ))}
+                        {user?.id == album?.artist_id && (
+                            <span onClick={() => navigate(`/albums/${album_id}/new_song`)}>
+                                <h1 className="addSongToAlbumButton">Add Song</h1>
+                            </span>
+                        )}
                     </div>
                 </div>
             </div>

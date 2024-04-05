@@ -28,33 +28,59 @@ function LoginFormModal() {
     }
   };
 
+  const handleDemoLogin = async (e) => {
+    e.preventDefault()
+
+    const serverResponse = await dispatch(
+      thunkLogin({
+        email: "demo@aa.io",
+        password: "password"
+      })
+    );
+
+    if (serverResponse) {
+      setErrors(serverResponse);
+    } else {
+      closeModal();
+    }
+  }
+
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+    <div className="modalContainer">
+      <form onSubmit={handleSubmit}
+        className="modalForm"
+      >
+        <h1>Log In</h1>
+        <div className="modalInput">
+          <label className="modalLabel">
+            Email
+            <input
+              className="modalInfo"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          {errors.email && <p className="errorMessages">{errors.email}</p>}
+        </div>
+        <div className="modalInput">
+          <label className="modalLabel">
+            Password
+            <input
+              className="modalInfo"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          {errors.password && <p className="errorMessages">{errors.password}</p>}
+        </div>
+        <button className="modalButton" onClick={handleDemoLogin}>Demo User</button>
+        <button className="modalButton" type="submit">Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 
