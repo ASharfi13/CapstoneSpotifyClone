@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchAllPlaylists } from "../../redux/playlists"
-import { FaMusic } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
 import "./myPlaylists.css"
 
@@ -18,7 +17,7 @@ function MyPlaylists() {
     return (
         <>
             <div className="playlistContainer">
-                <h2 style={{ fontWeight: "lighter" }}> <FaMusic /> My Playlists</h2>
+                <h2 style={{ fontWeight: "lighter" }}> My Playlists</h2>
                 <div className="playlistCardContainer">
                     {playlistArr.map((playlist, idx) => (
                         <div key={idx} className="playlistCard">

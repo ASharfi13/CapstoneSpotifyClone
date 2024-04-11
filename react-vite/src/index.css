@@ -9,7 +9,13 @@ label {
     color: black;
 }
 
+@font-face {
+    font-family: MixFont;
+    src: url(/Users/ahmedsharfi/Desktop/AA-Projects/Capstone/react-vite/fonts/ZTGatha-SemiBold.ttf);
+}
+
 body {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    font-family: MixFont;
     background: linear-gradient(to bottom, black 20%, var(--purple) 150%);
 }
