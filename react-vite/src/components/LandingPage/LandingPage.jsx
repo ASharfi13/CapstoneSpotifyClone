@@ -7,7 +7,6 @@ function LandingPage() {
     return (
         <>
             <div className="landingLayout">
-                <MyPlaylists />
                 <div>
                     <AllSongs />
                     <AllAlbums />

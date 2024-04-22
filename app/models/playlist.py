@@ -15,3 +15,13 @@ class Playlist(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     createdAt = db.Column(db.Date, default=dt.datetime.now())
     updatedAt = db.Column(db.Date, default=dt.datetime.now())
+
+    def to_Dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "cover_img": self.cover_img,
+            "description": self.description,
+            "user_id": self.user_id,
+            "createdAt": str(self.createdAt)
+        }

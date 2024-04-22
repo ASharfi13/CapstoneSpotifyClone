@@ -7,7 +7,9 @@ const ADD_NEW_SONG = "song/loadNewSong";
 const CLEAR_SONGS = "song/clearSongs";
 const UPDATE_SONG = "song/updateSong";
 const DELETE_SONG = "song/deleteSong";
-
+const LOAD_LIKED_SONGS = "song/loadLikedSongs";
+const ADD_SONG_TO_LIKES = "song/addSongToLikes";
+const REMOVE_SONG_FROM_LIKES = "song/removeSongFromLikes";
 
 //ACTION CREATORS
 export const loadAllSongs = (songs) => {
@@ -50,6 +52,20 @@ export const clearSongs = () => {
         type: CLEAR_RESTAURANTS
     };
 };
+
+export const loadLikedSongs = (songs) => {
+    return {
+        type: LOAD_LIKED_SONGS,
+        songs
+    }
+}
+
+export const removeLikedSong = (song_id) => {
+    return {
+        type: REMOVE_SONG_FROM_LIKES,
+        song_id
+    }
+}
 
 
 //ACTION THUNK CREATORS
@@ -118,29 +134,102 @@ export const removeSong = (song_id) => async (dispatch) => {
     }
 }
 
+export const getLikedSongs = (user_id) => async (dispatch) => {
+    const response = await fetch(`/api/songs/liked_songs/${user_id}`)
+
+    if (response.ok) {
+        const { likedSongs } = await response.json()
+        dispatch(loadLikedSongs(likedSongs))
+        return likedSongs
+    } else {
+        console.log("Something went wrong in the thunk")
+    }
+}
+
+export const loadSongToLikes = (user_id, song_id) => async (dispatch) => {
+    const response = await fetch(`/api/songs/liked_songs/${user_id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ "song_id": song_id })
+    })
+
+    if (response.ok) {
+        const { like } = await response.json()
+        return like
+    } else {
+        console.log("Something went wrong in the thunk")
+    }
+}
+
+export const removeSongFromLikes = (user_id, song_id) => async (dispatch) => {
+    const response = await fetch(`/api/songs/liked_songs/${user_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ "song_id": song_id })
+    })
+
+    if (response.ok) {
+        const { like } = await response.json()
+        dispatch(removeLikedSong(song_id))
+        return like
+    } else {
+        console.log("Something went wrong in the thunk")
+    }
+}
+
 //REDUCER
-const songReducer = (state = {}, action) => {
+const initialState = {
+    "songs": {},
+    "likedSongs": {}
+}
+
+const songReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL_SONGS: {
             const songsState = {}
             action.songs.songs.forEach((song) => (
                 songsState[song.id] = song
             ))
-            return songsState
+            state["songs"] = songsState
+            return state
         }
         case LOAD_SONG: {
-            return { ...state, [action.song.id]: action.song }
+            // return { ...state, [action.song.id]: action.song }
+            state["songs"] = { ...state, [action.song.id]: action.song }
+            return state
         }
         case ADD_NEW_SONG: {
-            return { ...state, ...action.song }
+            // return { ...state, ...action.song }
+            state["songs"] = { ...state, ...action.song }
+            return state
         }
         case UPDATE_SONG: {
-            return { ...state, ...action.song }
+            // return { ...state, ...action.song }
+            state["songs"] = { ...state, ...action.song }
+            return state
         }
         case DELETE_SONG: {
-            const currState = { ...state }
+            const currState = { ...state["songs"] }
             delete currState[action.song_id]
-            return currState
+            return state
+        }
+        case LOAD_LIKED_SONGS: {
+            const likedSongsArr = Object.values(action.songs)
+            const newSongs = {}
+            likedSongsArr.forEach((song) => {
+                newSongs[song.id] = song
+            })
+            state["likedSongs"] = newSongs
+            return state
+        }
+        case REMOVE_SONG_FROM_LIKES: {
+            const currState = { ...state["likedSongs"] }
+            delete currState[action.song_id]
+            return state
         }
         case CLEAR_SONGS:
             return {};

@@ -8,7 +8,7 @@
     margin-right: 20px;
     margin-left: 40px;
     cursor: pointer;
-    border-radius: 7px;
+    border-radius: 15px;
     justify-content: center;
     align-items: center;
     padding-top: 10px;
@@ -23,6 +23,19 @@
     min-height: 150px;
     min-width: 150px;
     border-radius: 20px;
+}
+
+.songTitleInfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    height: fit-content;
+}
+
+.songTitleIcons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .songContainer {

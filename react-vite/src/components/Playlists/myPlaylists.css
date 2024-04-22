@@ -17,6 +17,11 @@
     margin: 10px;
     align-items: center;
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.playlistCard:hover {
+    background-color: var(--darkp);
 }
 
 .playlistCardContainer {
@@ -34,4 +39,45 @@
     min-width: 40px;
     margin: 7px;
     border-radius: 5px;
+}
+
+.playlistImgTitle {
+    display: flex;
+    gap: 5px;
+}
+
+.playlistPlayButton {
+    width: fit-content;
+    border-radius: 40px;
+}
+
+.playlistPlayButton:hover {
+    filter: drop-shadow(0 0 0.75rem var(--lightp));
+}
+
+.likedPlaylistIconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    border-radius: 5px;
+    border: 2px solid var(--purple);
+    background-color: var(--darkp);
+    width: 40px;
+    height: 40px;
+    margin: 7px;
+}
+
+
+.likedPlaylistIcon {
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.addPlaylistButton {
+    cursor: pointer;
+}
+
+.addPlaylistButton:hover {
+    filter: drop-shadow(0 0 0.75rem var(--buttonp));
 }

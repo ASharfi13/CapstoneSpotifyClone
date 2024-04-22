@@ -1,3 +1,8 @@
+.audioPlayer {
+    display: flex;
+    margin-top: 10px;
+}
+
 .rhap_container {
     background: black;
     border-radius: 20px;

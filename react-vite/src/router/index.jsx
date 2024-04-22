@@ -9,6 +9,11 @@ import UpdateSong from '../components/Songs/updateSong';
 import NewAlbum from '../components/Albums/newAlbum';
 import UpdateAlbum from '../components/Albums/updateAlbum';
 import AddSongToAlbum from '../components/Albums/addSongToAlbum';
+import NewPlaylist from '../components/Playlists/newPlaylist';
+import PlaylistDetails from '../components/Playlists/playlistDetails';
+import LikedSongsPlaylists from '../components/Playlists/likedSongsPlaylist';
+
+
 
 export const router = createBrowserRouter([
   {
@@ -48,7 +53,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/albums/:album_id/new_song",
-        element: <AddSongToAlbum/>
+        element: <AddSongToAlbum />
+      },
+      {
+        path: "/playlists/new",
+        element: <NewPlaylist />
+      },
+      {
+        path: "/playlists/:playlist_id",
+        element: <PlaylistDetails />
+      },
+      {
+        path: "/playlists/liked_songs/:user_id",
+        element: <LikedSongsPlaylists />
       }
     ],
   },

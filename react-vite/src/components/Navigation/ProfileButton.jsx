@@ -42,13 +42,14 @@ function ProfileButton() {
     await dispatch(thunkLogout());
     closeMenu();
     navigate("/")
+    window.location.reload()
   };
 
   return (
     <>
       <div className="ProfileContainer">
         <button className="ProfileButton" onClick={toggleMenu}>
-          {user ? <span style={{ fontSize: "20px", padding: "10px" }}>{user?.first_name}</span> : <BsThreeDots size={25} />}
+          {user ? <span className="profileNameButton">{user?.first_name}</span> : <BsThreeDots size={40} />}
         </button>
         {showMenu && (
           <div className={"profile-dropdown"} ref={ulRef}>

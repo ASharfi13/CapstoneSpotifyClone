@@ -1,6 +1,7 @@
 //ACTION TYPE CREATOR
 
 const LOAD_ALL_PLAYLISTS = "playlist/loadAllPlaylists"
+const ADD_NEW_PLAYLIST = "playlist/loadNewPlaylist"
 
 
 //ACTION CREATORS
@@ -8,6 +9,13 @@ export const loadAllPlaylists = (playlists) => {
     return {
         type: LOAD_ALL_PLAYLISTS,
         playlists
+    }
+}
+
+export const loadNewPlaylist = (playlist) => {
+    return {
+        type: ADD_NEW_PLAYLIST,
+        playlist
     }
 }
 
@@ -25,6 +33,21 @@ export const fetchAllPlaylists = () => async (dispatch) => {
     }
 }
 
+export const createNewPlaylist = (newPlaylist) => async (dispatch) => {
+    const response = await fetch("/api/playlists/", {
+        method: "POST",
+        body: newPlaylist
+    })
+
+    if (response.ok) {
+        const { playlist } = await response.json();
+        dispatch(loadNewPlaylist(playlist))
+        return playlist
+    } else {
+        console.log("SOMETHING WENT WRONG IN THE THUNK")
+    }
+}
+
 //ACTION REDUCER
 const playlistReducer = (state = {}, action) => {
     switch (action.type) {
@@ -35,6 +58,8 @@ const playlistReducer = (state = {}, action) => {
             })
             return playlistState
         }
+        case ADD_NEW_PLAYLIST:
+            return { ...state, ...action.playlist }
         default:
             return state
     }

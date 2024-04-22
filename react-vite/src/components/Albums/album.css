@@ -12,12 +12,16 @@
 
 .albumHeader {
     display: flex;
+    align-items: center;
     height: 350px;
     background: linear-gradient(to bottom, var(--darkp) 0%, black 120%);
     border-radius: 20px;
 }
 
 .albumCardImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-width: 290px;
     max-height: 290px;
     min-height: 290px;
@@ -50,6 +54,8 @@
     margin: 10px;
     width: 100%;
     align-items: center;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .songLabels {

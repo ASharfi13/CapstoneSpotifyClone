@@ -21,5 +21,5 @@ class UpdateAlbum(FlaskForm):
     title = StringField("Album Title", validators=[DataRequired("Album Title is Required")])
     genre = StringField("Album Genre", validators=[DataRequired("Album Genre is Required"), validate_genre])
     cover_img = FileField("Album Image File", validators=[FileAllowed(ALLOWED_IMAGE_EXTENSIONS)])
-    artist_id = IntegerField("Artist Id", validators=[DataRequired("Artist Id is Required")])
+    artist_id = IntegerField("Artist Id")
     submit = SubmitField("Create New Album")

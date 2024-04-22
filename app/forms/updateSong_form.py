@@ -12,5 +12,5 @@ class UpdateSong(FlaskForm):
     title = StringField("Song Title", validators=[DataRequired("Song Title is Required")])
     song_url = FileField("Audio File", validators=[FileAllowed(list(ALLOWED_AUDIO_EXTENSIONS))])
     cover_img = FileField("Image File", validators=[FileAllowed(list(ALLOWED_IMAGE_EXTENSIONS))])
-    artist_id = IntegerField("Artist Id", validators=[DataRequired("Artist Id is Required")])
+    artist_id = IntegerField("Artist Id")
     submit = SubmitField("Upload Audio File")

@@ -23,7 +23,12 @@ export default function Layout() {
           <Navigation />
           <div>
           </div>
-          {isLoaded && <Outlet />}
+          {isLoaded &&
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <MyPlaylists />
+              <Outlet />
+            </div>
+          }
           <Modal />
           <SongPlayer />
         </SongPlayingProvider>

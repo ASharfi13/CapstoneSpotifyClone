@@ -25,6 +25,7 @@ function LoginFormModal() {
       setErrors(serverResponse);
     } else {
       closeModal();
+      window.location.reload()
     }
   };
 
@@ -42,6 +43,7 @@ function LoginFormModal() {
       setErrors(serverResponse);
     } else {
       closeModal();
+      window.location.reload()
     }
   }
 

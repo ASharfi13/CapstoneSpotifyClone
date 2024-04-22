@@ -1,4 +1,4 @@
-from app.models import db, Song, Album, User
+from app.models import db, Song, Album, User, Like
 from flask import Blueprint, request
 from flask_login import login_required
 import json
@@ -35,6 +35,51 @@ def allSongs():
     print("LOOK HERE", formattedSongs)
 
     return json.dumps({"songs": formattedSongs})
+
+#GET LIKED SONGS at ["/api/songs/liked_songs/:user_id"]
+@song_routes.route("/liked_songs/<int:user_id>")
+@login_required
+def getUserLikedSongs(user_id):
+    likedSongs = Like.query.filter_by(user_id=user_id)
+    songs = [Song.query.get(like.song_id).to_Dict() for like in likedSongs]
+
+    return json.dumps({
+        "likedSongs": songs
+    })
+
+#ADD SONG TO LIKED SONGS at ["/api/songs/liked_songs/:user_id"]
+@song_routes.route("/liked_songs/<int:user_id>", methods=["POST"])
+@login_required
+def addSongToLiked(user_id):
+    song_id = request.json
+    newLike = Like(
+        user_id = user_id,
+        song_id = song_id["song_id"]
+    )
+    db.session.add(newLike)
+    db.session.commit()
+    return json.dumps({
+        "Message": "Song added to Likes"
+    })
+
+#REMOVE SONG FROM LIKED SONGS at ["/api/songs/liked_songs/:user_id"]
+@song_routes.route("/liked_songs/<int:user_id>", methods=["DELETE"])
+@login_required
+def removeSongFromLiked(user_id):
+    song_id = request.json
+    likedSong = Like.query.filter_by(user_id=user_id, song_id=song_id["song_id"]).first()
+
+    if not likedSong:
+        return json.dumps({
+            "Message": "Song Not In Liked"
+        })
+
+    db.session.delete(likedSong)
+    db.session.commit()
+    return json.dumps({
+        "Message": "Successfully removed Song from Likes"
+    })
+
 
 #GET SONG BY ID at ["/api/songs/:song_id"]
 @song_routes.route("/<int:song_id>")
@@ -73,10 +118,6 @@ def upload_image():
         #Upload the file to the S3 Bucket
         s3_audio_upload = upload_file_to_s3(song_file)
         s3_image_upload = upload_image_file_to_s3(cover_image_file)
-
-        print("***************************IMAGE UPLOAD", s3_image_upload)
-
-        print("***************************AUDIO UPLOAD", s3_audio_upload)
 
         if "url" in s3_audio_upload and "url" in s3_image_upload:
             s3_audio_upload_url = s3_audio_upload["url"]

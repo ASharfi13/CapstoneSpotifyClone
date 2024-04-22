@@ -9,7 +9,8 @@ function UpdateSong() {
     const navigate = useNavigate()
     const { song_id } = useParams()
 
-    const song = useSelector((state) => state.songs[song_id])
+    const song = useSelector((state) => state.songs.songs[song_id])
+    const user = useSelector((state) => state.session.user)
 
     const [title, setTitle] = useState(song?.title);
     const [coverImg, setCoverImg] = useState(song?.cover_img);
@@ -40,7 +41,7 @@ function UpdateSong() {
         updatedSong.append("title", title)
         updatedSong.append("song_url", newSong)
         updatedSong.append("cover_img", coverImg)
-        updatedSong.append("artist_id", song?.artist_id)
+        updatedSong.append("artist_id", user?.id)
 
         if (Object.values(errors).length === 0) {
             setLoading(true)
