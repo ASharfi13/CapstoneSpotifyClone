@@ -8,6 +8,7 @@ song_playlist_associations = db.Table(
     db.Column('playlist_id', db.Integer, db.ForeignKey(add_prefix_for_prod('playlists.id')), primary_key=True)
 )
 
+from ..models.playlist import Playlist
 
 class SongPlaylist(db.Model):
     __tablename__ = "song_playlists"
