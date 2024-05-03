@@ -82,7 +82,7 @@ export const writeNewAlbum = (newAlbum) => async (dispatch) => {
     })
 
     if (response.ok) {
-        const { album } = await response.json()
+        const album = await response.json()
         dispatch(loadNewAlbum(album))
         return album
     } else {

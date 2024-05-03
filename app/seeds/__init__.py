@@ -4,7 +4,7 @@ from .songs import seed_songs, undo_songs
 from .albums import seed_albums, undo_albums
 from .likes import seed_likes, undo_likes
 from .song_playlist import seed_song_playlists, undo_song_playlists
-from .playlist import seed_playlists, undo_playlists
+from .playlist import seed_playlists, undo_playlists, seed_associations, undo_associations
 
 from app.models.db import db, environment, SCHEMA
 
@@ -26,24 +26,27 @@ def seed():
         undo_songs()
         undo_likes()
         undo_playlists()
-        undo_song_playlists()
+        undo_associations()
+        # undo_song_playlists()
     seed_users()
     seed_albums()
     seed_songs()
     seed_likes()
     seed_playlists()
-    seed_song_playlists()
+    seed_associations()
+    # seed_song_playlists()
     # Add other seed functions here
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_users()
-    undo_albums()
-    undo_songs()
-    undo_likes()
+    undo_associations()
     undo_playlists()
-    undo_song_playlists()
+    undo_likes()
+    undo_songs()
+    undo_albums()
+    undo_users()
+    # undo_song_playlists()
 
     # Add other undo functions here

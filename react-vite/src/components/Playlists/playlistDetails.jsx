@@ -35,7 +35,6 @@ function PlaylistDetails() {
 
     const user = useSelector((state) => state.session.user);
     const likedSongs = useSelector((state) => state.songs?.likedSongs)
-    const allPlaylistSongs = Object.values(useSelector((state) => state.songPlaylists));
 
     let playlistSongs
 

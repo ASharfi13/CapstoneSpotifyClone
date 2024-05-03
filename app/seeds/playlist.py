@@ -1,5 +1,20 @@
-from app.models import db, Playlist, environment, SCHEMA
+from app.models import db, Playlist, Song, environment, SCHEMA
 from sqlalchemy.sql import text
+
+song_playlist_association_data = [
+    {"song_id": 1, "playlist_id": 1},
+    {"song_id": 2, "playlist_id": 1},
+    {"song_id": 3, "playlist_id": 1},
+    {"song_id": 4, "playlist_id": 2},
+    {"song_id": 1, "playlist_id": 2},
+    {"song_id": 2, "playlist_id": 2},
+    {"song_id": 3, "playlist_id": 3},
+    {"song_id": 4, "playlist_id": 3},
+    {"song_id": 1, "playlist_id": 3},
+    {"song_id": 2, "playlist_id": 4},
+    {"song_id": 3, "playlist_id": 4},
+    {"song_id": 4, "playlist_id": 4}
+]
 
 
 # Adds a demo user, you can add other users here if you want
@@ -15,6 +30,13 @@ def seed_playlists():
     db.session.add(playlist4)
     db.session.commit()
 
+def seed_associations():
+    for song in song_playlist_association_data:
+        playlist = Playlist.query.get(song["playlist_id"])
+        song = Song.query.get(song["song_id"])
+        playlist.songs.append(song)
+    db.session.commit()
+
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
 # have a built in function to do this. With postgres in production TRUNCATE
@@ -22,10 +44,19 @@ def seed_playlists():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
+
 def undo_playlists():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.playlists RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM playlists"))
+
+    db.session.commit()
+
+def undo_associations():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.song_playlist_associations RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM song_playlist_associations"))
 
     db.session.commit()

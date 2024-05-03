@@ -19,10 +19,13 @@ export const loadSongToPlaylist = (song) => {
     }
 }
 
-export const removeSongFromPlaylist = (songPlaylist_id) => {
+export const removeSongFromPlaylist = (song_id, playlist_id) => {
     return {
         type: REMOVE_SONG_FROM_PLAYLIST,
-        songPlaylist_id
+        action: {
+            song_id,
+            playlist_id
+        }
     }
 }
 

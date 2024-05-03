@@ -99,18 +99,21 @@ def removePlaylist(playlist_id):
 @playlist_routes.route("/new-song", methods=["POST"])
 @login_required
 def addSongToPlaylist():
+    #New Add contains song_id, playlist_id
     newAdd = request.json
 
-    newPlaylistAdd = SongPlaylist(
-        song_id = newAdd["song_id"],
-        playlist_id = newAdd["playlist_id"]
-    )
+    playlist = Playlist.query.get(newAdd["playlist_id"])
+    song = Song.query.get(newAdd["song_id"])
 
-    print(newPlaylistAdd)
+    playlist.songs.append(song)
 
-    db.session.add(newPlaylistAdd)
+    # newPlaylistAdd = SongPlaylist(
+    #     song_id = newAdd["song_id"],
+    #     playlist_id = newAdd["playlist_id"]
+    # ))
+
     db.session.commit()
-    return json.dumps(newPlaylistAdd.to_Dict())
+    return json.dumps(newAdd)
 
 #REMOVE SONG FROM PLAYLIST
 @playlist_routes.route("/<int:playlist_id>/song", methods=["DELETE"])
@@ -121,15 +124,12 @@ def removeSongFromPlaylist(playlist_id):
     song_id = song["song_id"]
 
 
-    playlistSong = SongPlaylist.query.filter_by(song_id=song_id, playlist_id=playlist_id).first()
+    # playlistSong = SongPlaylist.query.filter_by(song_id=song_id, playlist_id=playlist_id).first()
+    playlist = Playlist.query.get(playlist_id)
 
-    print("LOOK HERE THO** ", playlistSong)
+    del playlist.songs.song_id
 
-    songPlaylistId = playlistSong.id
-
-    db.session.delete(playlistSong)
     db.session.commit()
     return json.dumps({
-        "songPlaylist_id": songPlaylistId,
         "Message": "Successfully Removed Song From Playlist"
     }), 200

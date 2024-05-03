@@ -20,6 +20,9 @@ import AddSongPlaylistDrop from "../Playlists/addSongPlaylistDrop";
 import "./allSongs.css"
 import { usePlaylistSong } from "../../context/Playlist";
 
+import DeleteSongModal from "./deleteSongModal";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+
 
 function AllSongs() {
     const dispatch = useDispatch()
@@ -161,11 +164,15 @@ function AllSongs() {
                                     {showMenu && (
                                         <div className="editDeleteMenu">
                                             <p className="editDeleteButton" onClick={() => navigate(`/songs/${song?.id}/update`)}>Update</p>
-                                            <p className="editDeleteButton" onClick={(e) => {
+                                            {/* <p className="editDeleteButton" onClick={(e) => {
                                                 if (window.confirm("Are you sure you want to delete this Song?")) {
                                                     handleDelete(e, song?.id)
                                                 }
-                                            }}>Delete</p>
+                                            }}>Delete</p> */}
+                                            <OpenModalButton
+                                                buttonText={"Delete"}
+                                                modalComponent={<DeleteSongModal song_id={song?.id} message={"Are you sure you want to delete this Song?"} />}
+                                            />
                                         </div>
                                     )}
                                 </div>

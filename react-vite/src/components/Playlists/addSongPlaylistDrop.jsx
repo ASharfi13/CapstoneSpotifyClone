@@ -21,8 +21,6 @@ function AddSongPlaylistDrop({ playlists, song_id }) {
     const [add, setAdd] = useState(false);
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const [message, setMessage] = useState(false);
-    const playlistSongs = useSelector((state) => state.songPlaylists);
-    const playlistSongArr = Object.values(playlistSongs);
 
     const myPlaylists = Object.values(playlists).filter((playlist) => playlist?.user_id === user?.id && !playlist?.songs[song_id])
 
