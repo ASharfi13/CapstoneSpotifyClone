@@ -24,7 +24,7 @@ class Song(db.Model):
     album_id = db.Column(db.ForeignKey(add_prefix_for_prod("albums.id")), nullable=True)
     artist_id = db.Column(db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
-    playlists = db.relationship("Playlist", secondary='song_playlist_associations', back_populates='songs')
+    playlists = db.relationship("Playlist", secondary='song_playlists', back_populates='songs')
 
     createdAt = db.Column(db.Date, default=dt.datetime.now())
     updatedAt = db.Column(db.Date, default=dt.datetime.now())
