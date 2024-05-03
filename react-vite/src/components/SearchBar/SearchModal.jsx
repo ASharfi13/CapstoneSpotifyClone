@@ -12,7 +12,7 @@ export default function SearchModal() {
             {results?.length > 0 &&
                 <div className="song-results">
                     {results?.map(song => (
-                        <NavLink className="song-result" key={song?.id} onClick={handleExit}>
+                        <NavLink to={song?.album_id ? `/albums/${song?.album_id}` : `/songs/${song?.id}`} className="song-result" key={song?.id} onClick={handleExit}>
                             <img src={song?.cover_img} />
                             <div>{song?.title}</div>
                             •

@@ -11,7 +11,7 @@
     align-items: center;
     gap: 15px;
     padding: 10px 15px;
-    width: 50%;
+    width: fit-content;
     text-decoration: none;
     color: white;
     border: 2px solid var(--purple);

@@ -50,7 +50,7 @@ function AlbumDetails() {
                 <img className="albumCardImg" src={album?.cover_img} />
                 <div className="albumHeaderInfo">
                     <h1 style={{ fontSize: "80px" }}>{album?.title}</h1>
-                    <h3>{album?.artist?.first_name} {album?.artist?.last_name} • {albumYear} • {album?.songs?.length}</h3>
+                    <h3>{album?.artist?.first_name} {album?.artist?.last_name} • {album?.genre} • {albumYear} • {album?.songs?.length}</h3>
                 </div>
             </div>
             <div className="albumBody">
