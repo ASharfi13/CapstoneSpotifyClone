@@ -8,6 +8,10 @@ song_playlist_associations = db.Table(
     db.Column('playlist_id', db.Integer, db.ForeignKey(add_prefix_for_prod('playlists.id')), primary_key=True)
 )
 
+if environment == 'production':
+    song_playlist_associations.schema = SCHEMA
+
+
 class Song(db.Model):
     __tablename__ = 'songs'
     if environment == "production":

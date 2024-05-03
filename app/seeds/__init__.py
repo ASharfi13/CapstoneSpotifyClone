@@ -24,15 +24,15 @@ def seed():
         undo_users()
         undo_albums()
         undo_songs()
+        undo_song_playlists()
         undo_likes()
         undo_playlists()
-        undo_song_playlists()
     seed_users()
     seed_albums()
     seed_songs()
+    seed_song_playlists()
     seed_likes()
     seed_playlists()
-    seed_song_playlists()
     # Add other seed functions here
 
 
@@ -42,8 +42,8 @@ def undo():
     undo_users()
     undo_albums()
     undo_songs()
+    undo_song_playlists()
     undo_likes()
     undo_playlists()
-    undo_song_playlists()
 
     # Add other undo functions here

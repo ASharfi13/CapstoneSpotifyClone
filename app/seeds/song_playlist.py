@@ -1,6 +1,21 @@
 from app.models import db, SongPlaylist, environment, SCHEMA
 from sqlalchemy.sql import text
 
+song_playlist_association_data = [
+    {"song_id": 1, "playlist_id": 1},
+    {"song_id": 2, "playlist_id": 1},
+    {"song_id": 3, "playlist_id": 1},
+    {"song_id": 4, "playlist_id": 2},
+    {"song_id": 1, "playlist_id": 2},
+    {"song_id": 2, "playlist_id": 2},
+    {"song_id": 3, "playlist_id": 3},
+    {"song_id": 4, "playlist_id": 3},
+    {"song_id": 1, "playlist_id": 3},
+    {"song_id": 2, "playlist_id": 4},
+    {"song_id": 3, "playlist_id": 4},
+    {"song_id": 4, "playlist_id": 4}
+]
+
 
 # Adds a demo user, you can add other users here if you want
 def seed_song_playlists():

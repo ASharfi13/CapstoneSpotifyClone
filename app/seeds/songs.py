@@ -3,6 +3,7 @@ from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
+
 def seed_songs():
     baseCharged = Song(
         title='Base Charged', song_url='https://spotifycapstonecloneaudiofiles.s3.us-east-2.amazonaws.com/SkrillexLivesHere/BEATSMASH%2C+K+Theory+-+Astral+Plane.mp3', cover_img='https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/song1.jpeg', album_id=1, artist_id=2)
