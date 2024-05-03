@@ -1,6 +1,13 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 import datetime as dt
 
+song_playlist_associations = db.Table(
+    "song_playlist_associations",
+    db.Model.metadata,
+    db.Column('song_id', db.Integer, db.ForeignKey(add_prefix_for_prod('songs.id')), primary_key=True),
+    db.Column('playlist_id', db.Integer, db.ForeignKey(add_prefix_for_prod('playlists.id')), primary_key=True)
+)
+
 class Song(db.Model):
     __tablename__ = 'songs'
     if environment == "production":
@@ -13,7 +20,7 @@ class Song(db.Model):
     album_id = db.Column(db.ForeignKey(add_prefix_for_prod("albums.id")), nullable=True)
     artist_id = db.Column(db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
-    playlists = db.relationship("Playlist", secondary='song_playlists', back_populates='songs')
+    playlists = db.relationship("Playlist", secondary='song_playlist_associations', back_populates='songs')
 
     createdAt = db.Column(db.Date, default=dt.datetime.now())
     updatedAt = db.Column(db.Date, default=dt.datetime.now())
