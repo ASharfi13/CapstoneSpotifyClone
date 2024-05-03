@@ -1,6 +1,13 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 import datetime as dt
 
+song_playlist_associations = db.Table(
+    "song_playlist_associations",
+    db.Model.metadata,
+    db.Column('song_id', db.Integer, db.ForeignKey(add_prefix_for_prod('songs.id')), primary_key=True),
+    db.Column('playlist_id', db.Integer, db.ForeignKey(add_prefix_for_prod('playlists.id')), primary_key=True)
+)
+
 
 class SongPlaylist(db.Model):
     __tablename__ = "song_playlists"
