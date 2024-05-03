@@ -113,8 +113,6 @@ export const fetchUpdateSong = (song_id, song) => async (dispatch) => {
         body: song
     })
 
-    console.log("Look here")
-
     if (response.ok) {
         const { song } = await response.json()
         dispatch(updateSong(song))

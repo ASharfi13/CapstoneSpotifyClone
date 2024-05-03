@@ -19,7 +19,7 @@ function UpdateSong() {
 
     const [errors, setErrors] = useState({})
 
-    console.log("Song", song)
+
 
     useEffect(() => {
         const errObj = {}
@@ -27,7 +27,6 @@ function UpdateSong() {
         setErrors(errObj)
     }, [title])
 
-    console.log("CoverImg", coverImg)
 
     useEffect(() => {
         dispatch(fetchSong(song_id));

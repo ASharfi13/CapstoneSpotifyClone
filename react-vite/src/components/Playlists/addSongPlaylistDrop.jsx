@@ -26,8 +26,6 @@ function AddSongPlaylistDrop({ playlists, song_id }) {
 
     const checkSong = {}
 
-    console.log("look here", myPlaylists);
-
     const handleAddToPlaylist = async (e, song_id, playlist_id) => {
         e.preventDefault()
         setSelectedPlaylist(playlist_id)

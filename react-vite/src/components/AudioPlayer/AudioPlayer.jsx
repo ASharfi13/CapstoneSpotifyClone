@@ -11,10 +11,6 @@ function SongPlayer() {
     const { song } = useSongPlaying();
     const songArtist = songs[song?.id]?.artist
 
-
-    console.log(song);
-    console.log(songArtist);
-
     return (
         <div className='apContain'>
             <div className='audioPSongInfo'>

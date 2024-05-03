@@ -14,9 +14,6 @@ function SearchBar() {
     const songsArr = Object.values(songs);
     const { input, setInput, results, setResults, handleExit } = useSearch();
 
-    console.log("This is the input", input);
-    console.log("These are the results", results);
-
     const findResults = () => {
         if (input) {
             setResults([])

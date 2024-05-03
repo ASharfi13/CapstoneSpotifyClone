@@ -21,8 +21,6 @@ function MyPlaylists() {
         if (playlist?.user_id == user?.id) myPlaylistsArr.push(playlist)
     })
 
-    console.log(myPlaylistsArr)
-
     useEffect(() => {
         dispatch(fetchAllPlaylists())
     }, [dispatch])

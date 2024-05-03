@@ -22,7 +22,6 @@ function LikedSongsPlaylists() {
         dispatch(getLikedSongs(user?.id))
     }, [dispatch])
 
-    console.log(likedSongsArr[0]?.song_url)
 
 
     return (
