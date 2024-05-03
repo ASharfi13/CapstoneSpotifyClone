@@ -11,7 +11,14 @@ import { FaHeart } from "react-icons/fa";
 import { getLikedSongs } from "../../redux/songs";
 import { loadSongToLikes } from "../../redux/songs";
 import { removeSongFromLikes } from "../../redux/songs";
+import { fetchAllPlaylistSongs } from "../../redux/songPlaylists";
+import { clearSongPlaylists } from "../../redux/songPlaylists";
+import { useLikedSong } from "../../context/Like";
+
+import AddSongPlaylistDrop from "../Playlists/addSongPlaylistDrop";
+
 import "./allSongs.css"
+import { usePlaylistSong } from "../../context/Playlist";
 
 
 function AllSongs() {
@@ -20,25 +27,35 @@ function AllSongs() {
     const { setSong } = useSongPlaying()
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
-    const [likeChange, setLikeChange] = useState(false)
+    // const [likeChange, setLikeChange] = useState(false);
+    const { likeChange, setLikeChange } = useLikedSong();
+
+    const [showAddPlaylist, setShowAddPlaylist] = useState(false);
+    const [selectedSong, setSelectedSong] = useState(0);
+
+    //Ref Varibale
+    const dropMenuRef = useRef();
+
+    const songs = useSelector((state) => state.songs?.songs);
+    const albums = useSelector((state) => state.albums);
+    const user = useSelector((state) => state.session.user);
+    const likedSongs = useSelector((state) => state.songs.likedSongs);
+    const playlists = useSelector((state) => state.playlists.playlists);
+
+    const songsArr = Object.values(songs)
+
+    //Handle Functions/UseEffects Below
 
     const toggleMenu = (e) => {
         e.stopPropagation();
         setShowMenu(!showMenu);
     }
 
-    const songs = useSelector((state) => state.songs?.songs)
-    const albums = useSelector((state) => state.albums)
-    const user = useSelector((state) => state.session.user)
-    const likedSongs = useSelector((state) => state.songs.likedSongs);
-
-    const songsArr = Object.values(songs)
-
     useEffect(() => {
         if (!showMenu) return;
 
         const closeMenu = (e) => {
-            if (ulRef.current && !ulRef.current.contains(e.target)) {
+            if (ulRef?.current && !ulRef?.current?.contains(e.target)) {
                 setShowMenu(false);
             }
         }
@@ -48,15 +65,28 @@ function AllSongs() {
         return () => document.removeEventListener("click", closeMenu)
     }, [showMenu])
 
-    const closeMenu = () => setShowMenu(false);
-
     useEffect(() => {
         dispatch(fetchAllSongs())
         dispatch(fetchAllAlbums())
         dispatch(getLikedSongs(user?.id))
-    }, [dispatch, likeChange])
+        dispatch(fetchAllPlaylistSongs())
 
+        return () => {
+            dispatch(clearSongPlaylists({}))
+        }
+    }, [dispatch, likeChange, user?.id])
 
+    //Click Outside Close Drop Down Use Effect:
+    useEffect(() => {
+        const handleClose = (e) => {
+            if (!dropMenuRef?.current?.contains(e.target)) setShowAddPlaylist(false)
+        }
+        document.addEventListener("mousedown", handleClose)
+
+        return () => {
+            document.removeEventListener("mousedown", handleClose)
+        }
+    })
 
     const handleDelete = async (e, song_id) => {
         e.preventDefault();
@@ -85,12 +115,29 @@ function AllSongs() {
                 <div className="songContainer">
                     {songsArr.map((song, idx) => (
                         <div className="songCard" key={idx}>
-                            <img onClick={() => setSong(song?.song_url)} className="songImg" src={song?.cover_img}></img>
+                            <img onClick={() => setSong(song)} className="songImg" src={song?.cover_img}></img>
+                            {showAddPlaylist && selectedSong == song?.id ?
+                                <div ref={dropMenuRef}>
+                                    <AddSongPlaylistDrop playlists={playlists} song_id={song?.id} />
+                                </div> : null}
                             <div className="songInfo">
+                                <h3 className="songCardTitle" onClick={() => {
+                                    if (!song?.album_id) {
+                                        navigate(`/songs/${song?.id}`)
+                                    } else {
+                                        navigate(`/albums/${song?.album_id}`)
+                                    }
+                                }}>{song?.title}</h3>
                                 <div className="songTitleInfo">
-                                    <h3>{song?.title}</h3>
                                     <div className="songTitleIcons">
-                                        <IoIosAddCircle size={20} />
+                                        <IoIosAddCircle className="addSongPlaylistButton" size={20} onClick={() => {
+                                            if (!user) {
+                                                window.alert("Please Log In to Add to Playlist")
+                                            } else {
+                                                setShowAddPlaylist(!showAddPlaylist)
+                                                setSelectedSong(song?.id)
+                                            }
+                                        }} />
                                         {likedSongs[song?.id] !== undefined ? <FaHeart size={20} onClick={(e) => {
                                             if (user) {
                                                 handleRemoveLike(e, user?.id, song?.id)
@@ -122,6 +169,7 @@ function AllSongs() {
                                         </div>
                                     )}
                                 </div>
+
                             ) : null}
                         </div>
                     ))}

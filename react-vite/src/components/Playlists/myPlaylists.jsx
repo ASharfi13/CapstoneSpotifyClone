@@ -10,7 +10,8 @@ import "./myPlaylists.css"
 function MyPlaylists() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const playlists = useSelector((state) => state.playlists);
+    const playlists = useSelector((state) => state.playlists.playlists);
+
     const playlistArr = Object.values(playlists);
     const user = useSelector((state) => state.session.user);
 

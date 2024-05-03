@@ -16,11 +16,8 @@ function AlbumDetails() {
     const { album_id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [showMenu, setShowMenu] = useState(false);
     const [likeChange, setLikeChange] = useState(false);
-    const ulRef = useRef();
     const { setSong } = useSongPlaying();
-    const closeMenu = () => setShowMenu(false);
 
     const album = useSelector((state) => state.albums[album_id]);
     const user = useSelector((state) => state.session.user);
@@ -48,11 +45,11 @@ function AlbumDetails() {
     }
 
     return (
-        <div style={{ width: "100%" }}>
+        <div className="albumContainer" style={{ width: "100%" }}>
             <div className="albumHeader">
                 <img className="albumCardImg" src={album?.cover_img} />
                 <div className="albumHeaderInfo">
-                    <h1 style={{ fontSize: "120px" }}>{album?.title}</h1>
+                    <h1 style={{ fontSize: "80px" }}>{album?.title}</h1>
                     <h3>{album?.artist?.first_name} {album?.artist?.last_name} • {albumYear} • {album?.songs?.length}</h3>
                 </div>
             </div>
@@ -60,7 +57,7 @@ function AlbumDetails() {
                 <div className="albumSongs">
                     <div style={{ width: "100%" }}>
                         <FaCirclePlay size={70} className="playlistPlayButton" style={{ cursor: "pointer" }} onClick={() => {
-                            setSong(songs[0]?.song_url)
+                            setSong(songs[0])
                         }} />
                     </div>
                     <div className="songLabels">
@@ -71,7 +68,9 @@ function AlbumDetails() {
                     </div>
                     <div className="albumSongsContainer">
                         {album?.songs?.map((song, idx) => (
-                            <div className="albumSongCard" key={idx}>
+                            <div className="albumSongCard" key={idx} onClick={() => {
+                                setSong(song)
+                            }}>
                                 <div className="songTitleAlign">
                                     <p style={{ marginRight: "20px" }}>{idx + 1}</p>
                                     <div className="playlistImgTitle">

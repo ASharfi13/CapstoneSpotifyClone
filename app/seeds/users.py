@@ -6,14 +6,37 @@ from sqlalchemy.sql import text
 def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password', first_name="Demo", last_name="User")
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="Wilson")
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name="Bobbie", last_name="Brown")
+    sonny = User(
+        username='Skrillex', email='skrillex@aa.io', password='password', first_name="Sonny", last_name="Moore")
+    frank = User(
+        username='FrankOcean', email='focean@aa.io', password='password', first_name="Frank", last_name="Ocean")
+    ice = User(
+        username='IceJJFish', email='icejjfish@aa.io', password='password', first_name="Ice", last_name="JJFish")
+    rexxo = User(
+        username='Rexxo', email='rexxo@aa.io', password='password', first_name="Rexxo", last_name="Fire"
+    )
+    diana = User(
+        username='SadDiana', email='diana@aa.io', password='password', first_name='Sad', last_name='Diana'
+    )
+    david = User(
+        username='DavidR', email='davidR@aa.io', password='password', first_name='David', last_name='Reilly'
+    )
+    tom = User(
+        username='TomH', email='tomH@aa.io', password='password', first_name='Tom', last_name="H"
+    )
+    abby = User(
+        username='AbbyRocker', email="abbyRock@aa.io", password='password', first_name='Abby', last_name="Rocker"
+    )
 
     db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    db.session.add(sonny)
+    db.session.add(frank)
+    db.session.add(ice)
+    db.session.add(rexxo)
+    db.session.add(diana)
+    db.session.add(david)
+    db.session.add(tom)
+    db.session.add(abby)
     db.session.commit()
 
 

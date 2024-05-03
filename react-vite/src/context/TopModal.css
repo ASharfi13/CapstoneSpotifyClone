@@ -1,0 +1,36 @@
+#top-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#top-modal-content {
+    position: fixed;
+    top: 84px;
+    background: linear-gradient(black, var(--darkp));
+    border-radius: 20px;
+    border: 2px solid var(--purple);
+    width: 50%;
+    height: fit-content;
+    max-height: 40%;
+    overflow-y: scroll;
+    animation: open-top 500ms ease-in-out;
+}
+
+@keyframes open-top {
+    0% {
+        transform: translateY(-30vw);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

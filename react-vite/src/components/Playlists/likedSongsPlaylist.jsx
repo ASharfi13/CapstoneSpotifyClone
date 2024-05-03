@@ -39,7 +39,7 @@ function LikedSongsPlaylists() {
                 <div className="albumSongs">
                     <div style={{ width: "100%" }}>
                         <FaCirclePlay size={70} className="playlistPlayButton" style={{ cursor: "pointer" }} onClick={() => {
-                            setSong(likedSongsArr[0]?.song_url)
+                            setSong(likedSongsArr[0])
                         }} />
                     </div>
                     <div className="songLabels">
@@ -50,16 +50,15 @@ function LikedSongsPlaylists() {
                     </div>
                     <div className="albumSongsContainer">
                         {likedSongsArr?.map((song, idx) => (
-                            <div className="albumSongCard" key={idx}>
+                            <div className="albumSongCard" key={idx} onClick={() => {
+                                setSong(song)
+                            }} >
                                 <div className="songTitleAlign">
                                     <p style={{ marginRight: "20px" }}>{idx + 1}</p>
                                     <div className="playlistImgTitle">
                                         <img src={song?.cover_img} className="playlistCardImg" />
                                         <p>{song?.title}</p>
                                     </div>
-                                </div>
-                                <div className="iconItemsAlign">
-                                    <IoMdAddCircleOutline color="var(--lightp)" size={25} />
                                 </div>
                             </div>
                         ))}

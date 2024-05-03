@@ -6,13 +6,17 @@ genres = ["Hip-Hop", "Pop", "Rock", "Reggaeton", "Country", "Rap", "Indie", "Alt
 # Adds a demo user, you can add other users here if you want
 def seed_albums():
     album1 = Album (
-        title='Album1', genre = genres[12], artist_id = 1, cover_img='https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/SongImages/song1.jpeg'
+        title="SkrillexLivesHere", genre = genres[11], artist_id = 2, cover_img='https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/song1.jpeg'
         )
     album2 = Album (
-        title='Album2', genre = genres[9], artist_id = 2, cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/SongImages/undocumented.png"
+        title="Frank's Secret", genre = genres[14], artist_id = 3, cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/undocumented.png"
+    )
+    album3 = Album (
+        title="IceJJTrax", genre= genres[0], artist_id=4, cover_img="https://spotifycloneimagebucketmix.s3.us-east-2.amazonaws.com/iceJJCover.jpg"
     )
     db.session.add(album1)
     db.session.add(album2)
+    db.session.add(album3)
     db.session.commit()
 
 

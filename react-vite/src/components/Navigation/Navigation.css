@@ -9,7 +9,7 @@
   padding: 10px;
   margin: 10px;
   right: 10px;
-  background-color: var(--lightp);
+  background: linear-gradient(var(--lightp), var(--purple));
   border-radius: 5px;
   color: var(--darkp);
   list-style: none;
@@ -24,9 +24,7 @@
   align-items: center;
   border-radius: 10px;
   background-color: black;
-}
-
-.NavContainer {
+  z-index: 1001;
   color: black;
 }
 
@@ -64,6 +62,14 @@
 
 .profileNavs {
   text-decoration: none;
+  color: var(--darkp);
+  padding: 8px;
+}
+
+.profileNavs:hover {
+  border: 1px solid var(--darkp);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }
 
 .dropDownLink {
@@ -89,4 +95,22 @@
   background: linear-gradient(var(--purple), var(--darkp));
   background-clip: text;
   color: transparent;
+}
+
+.profile-active-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-logout {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.profile-logout:hover {
+  border: 1px solid var(--darkp);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }

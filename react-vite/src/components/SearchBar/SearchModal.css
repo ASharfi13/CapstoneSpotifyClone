@@ -1,0 +1,36 @@
+.song-results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+    margin-left: 20px;
+}
+
+.song-result {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
+    width: 50%;
+    text-decoration: none;
+    color: white;
+    border: 2px solid var(--purple);
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.song-result:hover {
+    opacity: 0.7;
+}
+
+.song-result>img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+/* #top-modal-content>div {
+    padding-left: calc(max(20vw, 350px) + 40px + 16px);
+} */

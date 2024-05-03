@@ -25,6 +25,10 @@
     border-radius: 20px;
 }
 
+.songCardTitle:hover {
+    color: var(--purple);
+}
+
 .songTitleInfo {
     display: flex;
     justify-content: space-between;
@@ -84,4 +88,17 @@ body {
 
 .editDeleteButton:hover {
     color: var(--purple);
+}
+
+.addSongPlaylistButton {
+    cursor: pointer;
+}
+
+.addSongPlaylistButton:hover {
+    border: 1px solid var(--purple);
+    border-radius: 50%;
+}
+
+.likeButton {
+    cursor: pointer;
 }

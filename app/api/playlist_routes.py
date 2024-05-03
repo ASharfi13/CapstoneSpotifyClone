@@ -11,31 +11,32 @@ playlist_routes = Blueprint("playlists", __name__)
 
 #GET ALL PLAYLISTS
 @playlist_routes.route("/")
+# @login_required
 def allPlaylists():
     playlists = Playlist.query.all()
 
-    formattedPlaylists = []
-
-
-    for playlist in playlists:
-        newPlaylist = {}
-
-        newPlaylist["id"] = playlist.id
-        newPlaylist["title"] = playlist.title
-        newPlaylist["description"] = playlist.description
-        newPlaylist["cover_img"] = playlist.cover_img
-        newPlaylist["user_id"] = playlist.user_id
-        newPlaylist["User"] = User.query.get(playlist.user_id).to_dict()
-        songIds = SongPlaylist.query.filter_by(playlist_id = playlist.id)
-        songs = [Song.query.get(song.song_id).to_Dict() for song in songIds]
-        newPlaylist["songs"] = songs
-        newPlaylist["createdAt"] = str(playlist.createdAt)
-
-        formattedPlaylists.append(newPlaylist)
-
     return json.dumps({
-        "playlists": formattedPlaylists
+        "playlists": [playlist.to_Dict() for playlist in playlists]
     })
+
+#GET ALL SONG PLAYLISTS
+@playlist_routes.route("/all-songs")
+# @login_required
+def allPlaylistSongs():
+    songPlaylists = [songPlaylist.to_Dict() for songPlaylist in SongPlaylist.query.all()]
+    return json.dumps(songPlaylists)
+
+#GET PLAYLIST BY ID
+@playlist_routes.route("/<int:playlist_id>")
+def getPlaylistById(playlist_id):
+    playlist = Playlist.query.get(playlist_id)
+    if not playlist:
+        return json.dumps({
+            "Error": "Playlist Not Found"
+        })
+
+    return playlist.to_Dict(), 200
+
 
 # CREATE A PLAYLIST at ["/api/playlists/new"]
 @playlist_routes.route("/", methods=["POST"])
@@ -72,3 +73,63 @@ def createPlaylist():
             return {"errors": "Upload Not Successful"}
     else:
         return json.dumps({ "errors": form.errors})
+
+
+# DELETE PLAYLIST at ["/api/playlists/playlist_id"]
+@playlist_routes.route("/<int:playlist_id>", methods=["DELETE"])
+@login_required
+def removePlaylist(playlist_id):
+    playlist = Playlist.query.get(playlist_id)
+
+    if not playlist:
+        return json.dumps({
+            "Error": "Playlist Not Found"
+        })
+
+    remove_image_file_from_s3(playlist.cover_img)
+
+    db.session.delete(playlist)
+    db.session.commit()
+    return json.dumps({
+        "Message":"Successfully deleted Playlist"
+    }), 200
+
+
+#ADD SONG TO PLAYLIST
+@playlist_routes.route("/new-song", methods=["POST"])
+@login_required
+def addSongToPlaylist():
+    newAdd = request.json
+
+    newPlaylistAdd = SongPlaylist(
+        song_id = newAdd["song_id"],
+        playlist_id = newAdd["playlist_id"]
+    )
+
+    print(newPlaylistAdd)
+
+    db.session.add(newPlaylistAdd)
+    db.session.commit()
+    return json.dumps(newPlaylistAdd.to_Dict())
+
+#REMOVE SONG FROM PLAYLIST
+@playlist_routes.route("/<int:playlist_id>/song", methods=["DELETE"])
+@login_required
+def removeSongFromPlaylist(playlist_id):
+    song = request.json
+
+    song_id = song["song_id"]
+
+
+    playlistSong = SongPlaylist.query.filter_by(song_id=song_id, playlist_id=playlist_id).first()
+
+    print("LOOK HERE THO** ", playlistSong)
+
+    songPlaylistId = playlistSong.id
+
+    db.session.delete(playlistSong)
+    db.session.commit()
+    return json.dumps({
+        "songPlaylist_id": songPlaylistId,
+        "Message": "Successfully Removed Song From Playlist"
+    }), 200

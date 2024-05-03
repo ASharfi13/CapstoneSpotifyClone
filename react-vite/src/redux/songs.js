@@ -71,8 +71,12 @@ export const removeLikedSong = (song_id) => {
 //ACTION THUNK CREATORS
 export const fetchAllSongs = () => async (dispatch) => {
     const response = await fetch("/api/songs");
-    const songs = await response.json();
-    dispatch(loadAllSongs(songs))
+    if (response.ok) {
+        const songs = await response.json();
+        dispatch(loadAllSongs(songs))
+    } else {
+        console.log("We didn't even get all the songs brother")
+    }
 }
 
 export const fetchSong = (song_id) => async (dispatch) => {
@@ -95,7 +99,7 @@ export const createNewSong = (newSong) => async (dispatch) => {
     })
 
     if (response.ok) {
-        const { song } = await response.json();
+        const song = await response.json();
         dispatch(loadNewSong(song))
         return song
     } else {
@@ -195,41 +199,38 @@ const songReducer = (state = initialState, action) => {
                 songsState[song.id] = song
             ))
             state["songs"] = songsState
-            return state
+            return { ...state, songs: songsState }
         }
         case LOAD_SONG: {
-            // return { ...state, [action.song.id]: action.song }
-            state["songs"] = { ...state, [action.song.id]: action.song }
-            return state
+            const newSong = { ...state.songs, [action.song.id]: action.song }
+            return { ...state, songs: newSong }
         }
         case ADD_NEW_SONG: {
-            // return { ...state, ...action.song }
-            state["songs"] = { ...state, ...action.song }
-            return state
+            console.log("LOOK HERE PLEASE", action.song);
+            const newSong = { ...state.songs, [action.song.id]: action.song };
+            return { ...state, songs: newSong };
         }
         case UPDATE_SONG: {
-            // return { ...state, ...action.song }
             state["songs"] = { ...state, ...action.song }
             return state
         }
         case DELETE_SONG: {
-            const currState = { ...state["songs"] }
+            const currState = { ...state.songs }
             delete currState[action.song_id]
-            return state
+            return { ...state, songs: currState }
         }
         case LOAD_LIKED_SONGS: {
-            const likedSongsArr = Object.values(action.songs)
-            const newSongs = {}
+            const likedSongsArr = Object.values(action.songs);
+            const newLikedSongs = {};
             likedSongsArr.forEach((song) => {
-                newSongs[song.id] = song
-            })
-            state["likedSongs"] = newSongs
-            return state
+                newLikedSongs[song.id] = song;
+            });
+            return { ...state, likedSongs: newLikedSongs };
         }
         case REMOVE_SONG_FROM_LIKES: {
-            const currState = { ...state["likedSongs"] }
-            delete currState[action.song_id]
-            return state
+            const newLikedSongs = { ...state.likedSongs };
+            delete newLikedSongs[action.song_id];
+            return { ...state, likedSongs: newLikedSongs };
         }
         case CLEAR_SONGS:
             return {};

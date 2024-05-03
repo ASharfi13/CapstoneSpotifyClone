@@ -6,12 +6,15 @@ class Song(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(20), nullable=False)
     song_url = db.Column(db.String, nullable=False)
     cover_img = db.Column(db.String, nullable=False)
     album_id = db.Column(db.ForeignKey(add_prefix_for_prod("albums.id")), nullable=True)
     artist_id = db.Column(db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+
+    playlists = db.relationship("Playlist", secondary='song_playlists', back_populates='songs')
+
     createdAt = db.Column(db.Date, default=dt.datetime.now())
     updatedAt = db.Column(db.Date, default=dt.datetime.now())
 

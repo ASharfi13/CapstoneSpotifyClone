@@ -1,6 +1,44 @@
+.apContain {
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    background-color: black;
+}
+
+.audioPSongInfo {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin-left: 10px;
+    width: fit-content;
+}
+
+
+.audioPSongTitle {
+    width: fit-content;
+    margin-left: 20px;
+}
+
 .audioPlayer {
     display: flex;
     margin-top: 10px;
+    width: 950px;
+    margin-left: 100px;
+}
+
+.audioP-song-Img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80px;
+    max-height: 80px;
+    min-height: 80px;
+    min-width: 80px;
+    border-radius: 15px;
+}
+
+.a-con {
+    border: 2px solid pink;
 }
 
 .rhap_container {

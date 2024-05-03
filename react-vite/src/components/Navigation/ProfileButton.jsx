@@ -57,15 +57,17 @@ function ProfileButton() {
               <>
                 <p>{user.username}</p>
                 <p>{user.email}</p>
-                <p>
-                  <p className="dropDownLink" onClick={logout}>Log Out</p>
-                </p>
-                <NavLink className={"profileNavs"} to={"/songs/new"}>
-                  Drop New Song
-                </NavLink>
-                <NavLink className={"profileNavs"} to={"/albums/new"}>
-                  Drop New Album
-                </NavLink>
+                <div className="profile-active-links">
+                  <p className="profile-logout" onClick={logout}>
+                    Log Out
+                  </p>
+                  <NavLink className={"profileNavs"} to={"/songs/new"}>
+                    Drop New Song
+                  </NavLink>
+                  <NavLink className={"profileNavs"} to={"/albums/new"}>
+                    Drop New Album
+                  </NavLink>
+                </div>
               </>
             ) : (
               <>

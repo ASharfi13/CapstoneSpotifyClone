@@ -32,6 +32,18 @@
     border: 2px solid var(--darkp);
 }
 
+.songUnknownCardImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80px;
+    max-height: 80px;
+    min-height: 80px;
+    min-width: 80px;
+    border-radius: 15px;
+    border: 2px solid var(--darkp);
+}
+
 .albumHeaderInfo {
     line-height: 0.8;
 }
@@ -56,6 +68,11 @@
     align-items: center;
     padding: 10px;
     border-radius: 10px;
+}
+
+.albumSongCard:hover {
+    cursor: pointer;
+    background-color: rgba(81, 24, 176, 0.3);
 }
 
 .songLabels {
@@ -97,4 +114,26 @@
 .addSongToAlbumButton:hover {
     cursor: pointer;
     color: var(--purple);
+}
+
+.albumDesc {
+    width: 70%;
+    line-height: 1.5;
+}
+
+.albumDescriptionItems {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.removePlaylistButton {
+    cursor: pointer;
+    color: white;
+}
+
+.playlistModalButton {
+    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid var(--darkp);
 }

@@ -3,7 +3,8 @@
     justify-content: center;
     flex-wrap: wrap;
     border: 2px solid var(--purple);
-    width: 350px;
+    min-width: 250px;
+
     margin: 5px;
     background-color: black;
     border-radius: 20px;
@@ -80,4 +81,96 @@
 
 .addPlaylistButton:hover {
     filter: drop-shadow(0 0 0.75rem var(--buttonp));
+}
+
+.pdDContainer {
+    position: absolute;
+    border: 2px solid var(--darkp);
+    border-radius: 10px;
+    z-index: 1;
+    background: black;
+    padding: 10px;
+}
+
+.pdDLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 0px 5px 1px;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.pdDLinks:hover {
+    color: var(--buttonp);
+}
+
+.pdDPlaylist {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 0px 5px 1px;
+    border-radius: 5px;
+}
+
+.pdDPlaylist:hover {
+    background-color: var(--buttonp);
+}
+
+.pdDCoverImg {
+    border: 1px solid var(--darkp);
+    border-radius: 5px;
+    max-width: 25px;
+    max-height: 25px;
+    min-height: 25px;
+    min-width: 25x;
+}
+
+.pdDAllAddedText {
+    font-style: oblique;
+    color: var(--purple);
+    font-size: 15px;
+}
+
+.pdDPlaylistContainer {
+    margin-bottom: 5px;
+}
+
+.pSongMinusButton:hover {
+    color: var(--purple);
+    cursor: pointer;
+}
+
+.loadingDisc {
+    height: 35px;
+}
+
+.deletePlaylistModalContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    color: var(--darkp);
+    background: linear-gradient(white, var(--lightp));
+    border-radius: 30px;
+}
+
+.deletePlayButtonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 180px;
+}
+
+.deletePlaylistButton {
+    width: 120px;
+    align-self: center;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-style: oblique;
+    background: linear-gradient(var(--purple), var(--darkp));
+    color: whitesmoke;
+    cursor: pointer;
+    border: 2px solid var(--purple);
 }

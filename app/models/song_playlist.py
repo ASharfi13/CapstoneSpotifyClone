@@ -14,9 +14,10 @@ class SongPlaylist(db.Model):
     createdAt = db.Column(db.Date, default=dt.datetime.now())
     updatedAt = db.Column(db.Date, default=dt.datetime.now())
 
+
     def to_Dict(self):
         return {
-            "id": self.id,
+            "id" : self.id,
             "song_id": self.song_id,
             "playlist_id": self.playlist_id
         }
