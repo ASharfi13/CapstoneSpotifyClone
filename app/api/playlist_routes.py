@@ -126,10 +126,12 @@ def removeSongFromPlaylist(playlist_id):
 
     # playlistSong = SongPlaylist.query.filter_by(song_id=song_id, playlist_id=playlist_id).first()
     playlist = Playlist.query.get(playlist_id)
+    song = Song.query.get(song_id)
 
-    del playlist.songs.song_id
-
+    playlist.songs.remove(song)
     db.session.commit()
     return json.dumps({
+        "song_id": song_id,
+        "playlist_id": playlist_id,
         "Message": "Successfully Removed Song From Playlist"
     }), 200

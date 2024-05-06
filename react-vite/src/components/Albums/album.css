@@ -87,6 +87,12 @@
     justify-content: space-between;
 }
 
+.songTitleAlignCard {
+    display: flex;
+    width: fit-content;
+    justify-content: space-between;
+}
+
 .albumBody {
     background: linear-gradient(to bottom, black 0%, var(--darkp) 140%);
     border: 2px solid black;

@@ -26,6 +26,9 @@ function PlaylistDetails() {
     const { playlist_id } = useParams();
     // const [likeChange, setLikeChange] = useState(false)
     const { likeChange, setLikeChange } = useLikedSong();
+    const lastRemovedSong = useSelector((state) => state.playlists.lastRemoved);
+    console.log(lastRemovedSong);
+
 
     const [remove, setRemove] = useState(false);
     const { setSong } = useSongPlaying();
@@ -105,16 +108,18 @@ function PlaylistDetails() {
                             <div className="albumSongCard" key={idx} onClick={() => {
                                 setSong(songs[song?.id])
                             }} >
-                                <div className="songTitleAlign">
+                                <div className="songTitleAlignCard">
                                     <p style={{ marginRight: "20px" }}>{idx + 1}</p>
                                     <div className="playlistImgTitle">
                                         <img src={song?.cover_img} className="playlistCardImg" />
-                                        <p>{song?.title}</p>
+                                        <p className="playlistDetailsCardSongTitle">{song?.title}</p>
                                     </div>
                                 </div>
                                 <div className="iconItemsAlign">
                                     {likedSongs[song?.id] !== undefined ? <FaHeart className="likeButton" size={20} onClick={(e) => {
+                                        e.stopPropagation()
                                         handleRemoveLike(e, user?.id, song?.id)
+
                                     }} /> : <FaRegHeart className="likeButton" size={20} onClick={(e) => {
                                         handleLike(e, user?.id, song?.id)
                                     }} />}

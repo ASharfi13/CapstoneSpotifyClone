@@ -52,7 +52,7 @@ function LikedSongsPlaylists() {
                             <div className="albumSongCard" key={idx} onClick={() => {
                                 setSong(song)
                             }} >
-                                <div className="songTitleAlign">
+                                <div className="songTitleAlignCard">
                                     <p style={{ marginRight: "20px" }}>{idx + 1}</p>
                                     <div className="playlistImgTitle">
                                         <img src={song?.cover_img} className="playlistCardImg" />

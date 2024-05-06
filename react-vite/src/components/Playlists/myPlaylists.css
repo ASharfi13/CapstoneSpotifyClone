@@ -45,6 +45,11 @@
 .playlistImgTitle {
     display: flex;
     gap: 5px;
+    width: fit-content;
+}
+
+.playlistDetailsCardSongTitle{
+    min-width: fit-content;
 }
 
 .playlistPlayButton {
