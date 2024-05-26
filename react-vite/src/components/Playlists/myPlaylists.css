@@ -44,11 +44,11 @@
 
 .playlistImgTitle {
     display: flex;
-    gap: 7px;
+    gap: 5px;
     width: fit-content;
 }
 
-.playlistDetailsCardSongTitle{
+.playlistDetailsCardSongTitle {
     min-width: fit-content;
 }
 
