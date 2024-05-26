@@ -48,8 +48,8 @@ export const removeSongFromPlaylist = (song_id, playlist_id) => {
     return {
         type: REMOVE_SONG_FROM_PLAYLIST,
         payload: {
-            song_id: song_id,
-            playlist_id: playlist_id
+            song_id,
+            playlist_id
         }
     }
 }
@@ -126,7 +126,7 @@ export const addSongToPlaylist = (song_id, playlist_id) => async (dispatch) => {
     })
 
     if (response.ok) {
-        const newAdd = response.json()
+        const newAdd = await response.json()
         dispatch(loadSongToPlaylist(newAdd))
         return (newAdd)
     } else {
@@ -146,8 +146,11 @@ export const fetchSongPlaylistRemover = (song_id, playlist_id) => async (dispatc
     })
 
     if (response.ok) {
-        const { song_id } = response.json()
-        const { playlist_id } = response.json()
+        const response = await response.json();
+
+        const song_id = response.song_id;
+        const playlist_id = response.playlist_id;
+
         dispatch(removeSongFromPlaylist(song_id, playlist_id))
         return ({
             "Message": "Successfully Removed Song from Playlist"
@@ -199,9 +202,14 @@ const playlistReducer = (state = initialState, action) => {
             return { ...state, playlists: updatedPlaylists }
         }
         case REMOVE_SONG_FROM_PLAYLIST: {
-            // const { song_id, playlist_id } = action.payload
 
-            console.log(action)
+            // console.log("Action Thunk here", action);
+
+            // const response = action.payload
+
+            // const song_id = response.song_id
+            // const playlist_id = response.playlist_id
+
             // console.log("playlist Id", playlist_id);
             // const playlist = state.playlists.playlist_id
             // console.log("LOOK HERE", playlist);
@@ -214,13 +222,12 @@ const playlistReducer = (state = initialState, action) => {
             //     [playlist_id]: updatedPlaylist
             // }
 
+            // return {
+            //     ...state,
+            //     playlists: updatedPlaylists,
+            //     lastRemoved: { ...playlistSong }
+            // }
             return state
-
-            return {
-                ...state,
-                playlists: updatedPlaylists,
-                lastRemoved: { ...playlistSong }
-            }
         }
         default:
             return state
