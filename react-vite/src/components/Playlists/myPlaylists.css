@@ -44,7 +44,7 @@
 
 .playlistImgTitle {
     display: flex;
-    gap: 5px;
+    gap: 6px;
     width: fit-content;
 }
 
